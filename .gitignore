@@ -1,3 +1,6 @@
+# Project specific
+.elixir_ls
+
 # The directory Mix will write compiled artifacts to.
 /_build/
 
@@ -20,7 +23,7 @@ erl_crash.dump
 *.ez
 
 # Ignore package tarball (built via "mix hex.build").
-live_view_demo-*.tar
+answercast-*.tar
 
 # If NPM crashes, it generates a log, let's ignore it too.
 npm-debug.log

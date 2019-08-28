@@ -1,9 +1,9 @@
-defmodule LiveViewDemo.MixProject do
+defmodule Answercast.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :live_view_demo,
+      app: :answercast,
       version: "0.1.0",
       elixir: "~> 1.9.1",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -19,7 +19,7 @@ defmodule LiveViewDemo.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {LiveViewDemo.Application, []},
+      mod: {Answercast.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -44,7 +44,7 @@ defmodule LiveViewDemo.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:calendar, "~> 0.17.6"}
+      {:timex, "~> 3.6.1"}
     ]
   end
 
