@@ -8,6 +8,10 @@ defmodule Answercast.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
+      # Start the process registry
+      Answercast.ProcessRegistry,
+      # Start the dynamic game supervisor under which game managers will be started
+      Answercast.GameSupervisor,
       # Start the Ecto repository
       Answercast.Repo,
       # Start the endpoint when the application starts

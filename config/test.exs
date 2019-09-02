@@ -2,8 +2,8 @@ use Mix.Config
 
 # Configure your database
 config :answercast, Answercast.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "phoenix",
+  password: "elixir",
   database: "answercast_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
