@@ -9,7 +9,7 @@ defmodule Answercast.Application do
     # List all child processes to be supervised
     children = [
       # Start the process registry
-      Answercast.ProcessRegistry,
+      Answercast.GameRegistry,
       # Start the dynamic game supervisor under which game managers will be started
       Answercast.GameSupervisor,
       # Start the Ecto repository

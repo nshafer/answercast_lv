@@ -39,7 +39,7 @@ This gives 32^4 possible permutations, or 1,048,576 possible concurrent games.
 
 ### Game Manager
 
-A Game Manager is a GenServer that is created for each game to store the state of that game and act as a state machine. It communicates with the players/viewers (clients) via channels. The individual Game Managers are ephemeral and will only be running while there are clients connected. The state of the game will be persisted to database on a regular basis, so that if the server crashes, the first client to reconnect will relaunch the manager.
+A Game Manager is a GenServer that is created for each game to store the state of that game and act as a state machine. It communicates with the players/viewers (clients) via regular process messages. The individual Game Managers are ephemeral and will only be running while there are clients connected. The state of the game will be persisted to database on a regular basis, so that if the server crashes, the first client to reconnect will relaunch the manager.
 
 ### Game Supervisor
 

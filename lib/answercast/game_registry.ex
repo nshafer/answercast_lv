@@ -1,9 +1,9 @@
-defmodule Answercast.ProcessRegistry do
+defmodule Answercast.GameRegistry do
   require Logger
 
   def start_link do
     {:ok, reg} = Registry.start_link(keys: :unique, name: __MODULE__)
-    Logger.debug("Started Answercast.ProcessRegistry: #{inspect reg}")
+    Logger.debug("Started Answercast.GameRegistry: #{inspect(reg)}")
     {:ok, reg}
   end
 
@@ -17,5 +17,9 @@ defmodule Answercast.ProcessRegistry do
       id: __MODULE__,
       start: {__MODULE__, :start_link, []}
     )
+  end
+
+  def process_count() do
+    Registry.count(__MODULE__)
   end
 end

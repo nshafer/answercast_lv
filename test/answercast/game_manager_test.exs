@@ -1,6 +1,6 @@
 defmodule Answercast.GameManagerTest do
   use ExUnit.Case
-  alias Answercast.{GameSupervisor,GameManager}
+  alias Answercast.{GameSupervisor, GameManager}
 
   setup do
     game = GameSupervisor.game_process("TEST")
