@@ -141,6 +141,14 @@ defmodule Answercast.GameManager do
     broadcast_to_clients(Game.clients(game, type), message)
   end
 
+  defp broadcast_players(game, message) do
+    broadcast(game, :players, message)
+  end
+
+  defp broadcast_viewers(game, message) do
+    broadcast(game, :viewers, message)
+  end
+
   defp timeout_clients(game) do
     now = DateTime.utc_now()
 
