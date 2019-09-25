@@ -1,0 +1,22 @@
+<main>
+    <div class="papersheet">
+        <div class="papersheet__header">
+            <h1 class="papersheet__heading">Sandbox</h1>
+        </div>
+        <div class="papersheet__body">
+            <form phx-change="update" phx-submit="save">
+                <input type="hidden" name="foo" value="bar"/>
+                <div class="input-group">
+                    <label>Enter name</label>
+                    <input type="text" name="name">
+                </div>
+                <button class="pure-button" type="submit">Say Hi</button>
+            </form>
+
+            <%= if @name do %>
+                Hello, <%= upper(@name) %>
+            <% end %>
+        </div>
+    </div>
+</main>
+

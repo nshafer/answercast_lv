@@ -31,7 +31,7 @@ defmodule AnswercastWeb do
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/answercast_web/templates",
+        root: "templates",
         namespace: AnswercastWeb
 
       # Import convenience functions from controllers

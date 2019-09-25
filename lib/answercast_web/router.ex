@@ -10,21 +10,23 @@ defmodule AnswercastWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
+  pipeline :game do
+    plug :put_layout, {AnswercastWeb.LayoutView, :game}
   end
 
   scope "/", AnswercastWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/about", AboutController, :index
+
     live "/clock", ClockLive
     live "/sandbox", SandboxLive
     live "/sandbox/:name", SandboxLive
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", AnswercastWeb do
-  #   pipe_through :api
-  # end
+  scope "/", AnswercastWeb do
+    pipe_through [:browser, :game]
+
+    get "/", SplashController, :index
+  end
 end

@@ -7,8 +7,8 @@ defmodule AnswercastWeb.SandboxLive do
     AnswercastWeb.SandboxView.render("form.html", assigns)
   end
 
-  def mount(_session, socket) do
-    Logger.debug("mount: #{inspect socket}")
+  def mount(session, socket) do
+    Logger.debug("mount: #{inspect session} #{inspect socket}")
 
     {:ok, assign(socket, :name, nil)}
   end

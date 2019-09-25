@@ -1,0 +1,59 @@
+button, .btn {
+    background: $gray-80;
+    color: $gray-30;
+    border: 2px solid $gray-40;
+    padding: .5rem 1rem;
+    border-radius: .25rem;
+    box-shadow: 2px 3px 10px -3px rgba(0,0,0,0.5);
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
+
+    &:hover, &:focus {
+        border: 2px solid $primary;
+        outline: none;
+        box-shadow: 0 0 10px 0 $secondary;
+        color: $primary;
+        text-decoration: none;
+    }
+}
+
+.btn--primary {
+    background: $primary;
+    color: $gray-20;
+}
+
+.btn--link {
+    padding: 0;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    color: $primary;
+
+    &:hover, &:focus {
+        border: none;
+        outline: none;
+        box-shadow: none;
+        color: $secondary;
+    }
+}
+
+.button:disabled, .btn:disabled {
+    background: $gray-80;
+    border-color: $gray-60;
+    color: $gray-60;
+    outline: none;
+    box-shadow: none;
+    text-decoration: none;
+    cursor: auto;
+
+    &:hover, &:focus {
+        background: $gray-80;
+        border-color: $gray-60;
+        color: $gray-60;
+        outline: none;
+        box-shadow: none;
+        text-decoration: none;
+        cursor: auto;
+    }
+}

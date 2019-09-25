@@ -16,7 +16,7 @@ config :answercast, Answercast.Repo,
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :answercast, AnswercastWeb.Endpoint,
-  http: [port: 4000],
+  http: [port: 8000],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
@@ -61,7 +61,7 @@ config :answercast, AnswercastWeb.Endpoint,
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/answercast_web/(live|views)/.*(ex)$",
-      ~r"lib/answercast_web/templates/.*(eex)$",
+      ~r"templates/.*(l?eex)$",
       ~r{lib/live_view/live/.*(ex)$}
     ]
   ]

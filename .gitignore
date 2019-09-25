@@ -1,5 +1,7 @@
 # Project specific
 .elixir_ls
+.idea
+answercast.iml
 
 # The directory Mix will write compiled artifacts to.
 /_build/

@@ -1,0 +1,41 @@
+// paper variables that override settings in 'core/config'
+
+
+/* PaperCSS core */
+@import '../node_modules/papercss/src/core/config';
+@import '../node_modules/papercss/src/core/mixins';
+// @import 'core/reset';  // We use Bootstrap's reboot.css instead of normalize.css
+
+/* Layout styling */
+@import '../node_modules/papercss/src/layout/container';
+@import '../node_modules/papercss/src/layout/flexbox';
+
+/* Content styling */
+// @import '../node_modules/papercss/src/content/code';
+@import '../node_modules/papercss/src/content/fonts';
+@import '../node_modules/papercss/src/content/images';
+@import '../node_modules/papercss/src/content/lists';
+@import '../node_modules/papercss/src/content/tables';
+
+/* Utilities */
+@import '../node_modules/papercss/src/utilities/borders';
+@import '../node_modules/papercss/src/utilities/shadows';
+
+/* Components */
+// @import '../node_modules/papercss/src/components/accordion';
+// @import '../node_modules/papercss/src/components/alerts';
+// @import '../node_modules/papercss/src/components/article';
+// @import '../node_modules/papercss/src/components/badges';
+@import '../node_modules/papercss/src/components/buttons';
+@import '../node_modules/papercss/src/components/cards';
+@import '../node_modules/papercss/src/components/forms';
+// @import '../node_modules/papercss/src/components/modals';
+// @import '../node_modules/papercss/src/components/popovers';
+// @import '../node_modules/papercss/src/components/progress';
+// @import '../node_modules/papercss/src/components/tabs';
+// @import '../node_modules/papercss/src/components/utilities';
+// @import '../node_modules/papercss/src/components/navbar';
+
+// @media print {
+//  @import '../node_modules/papercss/src/layout/print';
+// }

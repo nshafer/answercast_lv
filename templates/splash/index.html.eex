@@ -1,0 +1,2 @@
+<%= render(AnswercastWeb.SharedView, "header.html", assigns) %>
+<%= Phoenix.LiveView.live_render(@conn, AnswercastWeb.JoinLive) %>

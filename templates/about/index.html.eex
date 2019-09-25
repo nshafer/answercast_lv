@@ -1,0 +1,12 @@
+<main>
+    <div class="papersheet">
+        <div class="papersheet__header">
+            <h1 class="papersheet__heading">About</h1>
+        </div>
+        <div class="papersheet__body">
+            About Answercast...
+        </div>
+    </div>
+</main>
+
+

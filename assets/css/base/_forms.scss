@@ -1,0 +1,52 @@
+input,
+select,
+textarea {
+  background: transparent;
+  border: 2px solid $gray-50;
+  color: $gray-20;
+  display: block;
+  font-size: 1rem;
+  outline: none;
+  padding: 0.5rem;
+  width: 100%;
+  border-radius: .25rem;
+
+  &:focus {
+    border: 2px solid $primary;
+    box-shadow: 0 0 10px 0 $secondary;
+  }
+}
+
+.input-badge-wrapper {
+  position: relative;
+}
+
+.input-badge {
+  position: absolute;
+  top: 50%;
+  right: .5rem;
+  transform: translateY(-50%);
+  background: $primary;
+  color: $white;
+  line-height: 1;
+  padding: .25rem .5rem;
+  border-radius: .25rem;
+}
+
+.input-badge--success {
+  background: $success;
+}
+
+.input-badge--failure {
+  background: $failure;
+}
+
+.input-group {
+  margin-bottom: 1rem;
+
+}
+
+label {
+  margin-bottom: .1rem;
+}
+

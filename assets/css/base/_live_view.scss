@@ -1,0 +1,55 @@
+.phx-disconnected {
+  cursor: wait;
+}
+
+.phx-disconnected * {
+  pointer-events: none;
+}
+
+.phx-disconnected::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,.5);
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.phx-disconnected::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  border: solid 3px #dedede;
+  border-bottom-color: #0069d9;
+  border-radius: 50%;
+  opacity: inherit;
+  animation: 0.8s linear infinite phx-spinner;
+  animation-play-state: inherit;
+  transform: translate3d(-50%, -50%, 0);
+  will-change: transform;
+  z-index: 1001;
+}
+
+.phx-error::before {
+  background-color: rgba(105, 1, 1, 0.5);
+}
+
+@keyframes phx-spinner {
+  0% {
+    -webkit-transform: translate3d(-50%, -50%, 0) rotate(0deg);
+            transform: translate3d(-50%, -50%, 0) rotate(0deg);
+  }
+  100% {
+    -webkit-transform: translate3d(-50%, -50%, 0) rotate(360deg);
+            transform: translate3d(-50%, -50%, 0) rotate(360deg);
+  }
+}
