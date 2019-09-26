@@ -1,7 +1,10 @@
 @import 'css/variables';
 
-main, .main {
-    padding: 1rem;
+.main {
+    padding: calc(#{$header-height} + 1rem) 1rem 1rem;
     flex-grow: 1;
     flex-shrink: 0;
+    @media (min-width: $header-lg) {
+        padding: calc(#{$header-height-lg} + 1rem) 1rem 1rem;
+    }
 }

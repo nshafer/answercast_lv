@@ -2,15 +2,24 @@
 
 .main-header {
   flex: 0 0 $header-height;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: $header-height;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
   background: rgba(0,0,0,0.4);
+  transition: background .2s;
   padding: 0 1rem;
   overflow: hidden;
   z-index: 100;
+
+  body.is-scrolled & {
+    background: rgba(0,0,0,0.8);
+  }
 
   @media (min-width: $header-lg) {
     height: $header-height-lg;
@@ -30,9 +39,9 @@
 
 .main-header__menu {
   @media (max-width: $header-lg) {
-    transform: translateX(-100%);
+    transform: translateX(110%);
     transition: transform .3s;
-    position: absolute;
+    position: fixed;
     top: $header-height;
     left: 0;
     width: 100%;

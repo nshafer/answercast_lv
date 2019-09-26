@@ -1,8 +1,8 @@
-defmodule AnswercastWeb.AboutController do
+defmodule AnswercastWeb.PageController do
   use AnswercastWeb, :controller
 
-  def index(conn, _params) do
+  def about(conn, _params) do
     IO.puts("layout: #{inspect layout(conn)} formats: #{inspect layout_formats(conn)}")
-    render(conn, "index.html")
+    render(conn, "about.html")
   end
 end

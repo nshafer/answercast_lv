@@ -6,8 +6,13 @@
     background: url(../../images/paper.jpg);
     color: $gray-20;
     padding: 1rem;
-    transform: rotate(1.00deg);
+    transform: rotate(10.00deg);
+    transition: transform .3s;
     box-shadow: 5px 5px 25px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  .main-header__menucheckbox:checked ~ .main-header__menu .main-menu {
+    transform: rotate(-1.00deg);
   }
 
   .main-menu__list {
@@ -72,16 +77,16 @@
     justify-content: center;
     align-items: center;
     color: $gray-90;
-    line-height: 1;
     font-size: 1rem;
+    line-height: 1;
     font-weight: normal;
     border-bottom: 4px solid transparent;
-    padding: 1.5rem 1.25rem 0;
+    padding: .5rem 1.25rem 0;
 
     &:hover {
       color: $white;
       text-decoration: none;
-      border-color: $primary;
+      border-bottom-color: $primary;
       //background: rgba(0,0,0,.2);
     }
   }

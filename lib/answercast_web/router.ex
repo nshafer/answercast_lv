@@ -10,23 +10,15 @@ defmodule AnswercastWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :game do
-    plug :put_layout, {AnswercastWeb.LayoutView, :game}
-  end
-
   scope "/", AnswercastWeb do
     pipe_through :browser
 
-    get "/about", AboutController, :index
+    live "/", JoinLive
+
+    get "/about", PageController, :about
 
     live "/clock", ClockLive
     live "/sandbox", SandboxLive
     live "/sandbox/:name", SandboxLive
-  end
-
-  scope "/", AnswercastWeb do
-    pipe_through [:browser, :game]
-
-    get "/", SplashController, :index
   end
 end

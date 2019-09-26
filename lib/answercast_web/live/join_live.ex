@@ -1,5 +1,5 @@
 defmodule AnswercastWeb.JoinLive do
-  use Phoenix.LiveView, container: {:div, class: "join-stack-container"}
+  use Phoenix.LiveView, container: {:div, class: "main join-stack-container"}
   import AnswercastWeb.Util
 
   @stack_switch_delay 710
