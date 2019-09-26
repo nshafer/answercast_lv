@@ -13,6 +13,10 @@
 
     <%= render @view_module, @view_template, assigns %>
 
+    <footer class="main-footer">
+        AnswerCast is Copyright ©2015-<%= year() %> Normal Technologies LLC D.B.A Type-in Games. All Rights Reserved.
+    </footer>
+
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/static/js/app.js") %>"></script>
   </body>
 </html>

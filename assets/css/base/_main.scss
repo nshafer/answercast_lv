@@ -1,4 +1,6 @@
-main {
+@import 'css/variables';
+
+main, .main {
     padding: 1rem;
     flex-grow: 1;
     flex-shrink: 0;

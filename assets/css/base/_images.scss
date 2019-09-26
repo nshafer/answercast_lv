@@ -1,0 +1,11 @@
+img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+
+  &.no-responsive {
+    display: initial;
+    height: initial;
+    max-width: initial;
+  }
+}

@@ -4,7 +4,9 @@
             <h1 class="papersheet__heading">About</h1>
         </div>
         <div class="papersheet__body">
-            About Answercast...
+            <p>
+                About Answercast...
+            </p>
         </div>
     </div>
 </main>

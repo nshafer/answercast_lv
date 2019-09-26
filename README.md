@@ -2,7 +2,7 @@
 
 This is my entry in [Phoenix Phrenzy](https://phoenixphrenzy.com), showing off what [Phoenix](https://phoenixframework.org/) and [LiveView](https://github.com/phoenixframework/phoenix_live_view) can do.
 
-![App Name Here preview](assets/images/preview.gif "App Name Here")
+![App Name Here preview](assets/static/images/preview.gif "App Name Here")
 
 # Phrenzy Instructions
 

@@ -1,0 +1,107 @@
+@import 'css/variables';
+
+.main-header {
+  flex: 0 0 $header-height;
+  height: $header-height;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0,0,0,0.4);
+  padding: 0 1rem;
+  overflow: hidden;
+  z-index: 100;
+
+  @media (min-width: $header-lg) {
+    height: $header-height-lg;
+  }
+}
+
+.main-header__logolink {
+  height: 80%;
+  position: relative;
+  top: 4px;
+}
+
+.main-header__logo {
+  height: 100%;
+  width: auto;
+}
+
+.main-header__menu {
+  @media (max-width: $header-lg) {
+    transform: translateX(-100%);
+    transition: transform .3s;
+    position: absolute;
+    top: $header-height;
+    left: 0;
+    width: 100%;
+    height: calc(100% - #{$header-height});
+    padding: 1rem;
+    z-index: 99;
+  }
+
+  @media (min-width: $header-lg) {
+    margin-left: 2rem;
+    height: 100%;
+  }
+}
+
+.main-header__menucheckbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  left: -9999px;
+  top: -9999px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+
+  // debug
+  //width: 10px;
+  //height: 10px;
+  //top: 0;
+  //left: 0;
+}
+
+.main-header__menuicon {
+  display: block;
+  @media (min-width: $header-lg) {
+    display: none;
+  }
+
+  width: 2rem;
+  margin: 0;
+
+  &:before, &:after, div {
+    background-color: $white;
+    border-radius: 1px;
+    content: '';
+    display: block;
+    height: 4px;
+    margin: 7px 0;
+    transition: all .3s ease-in-out;
+  }
+
+}
+
+@media (max-width: $header-lg) {
+  .main-header__menucheckbox:checked ~ .main-header__menuicon {
+    &:before {
+      transform: translateY(11px) rotate(135deg);
+    }
+
+    &:after {
+      transform: translateY(-11px) rotate(-135deg);
+    }
+
+    & div {
+      transform: scale(0);
+    }
+  }
+  .main-header__menucheckbox:checked ~ .main-header__menu {
+    transform: translateX(0%);
+  }
+}

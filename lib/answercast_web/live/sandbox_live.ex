@@ -1,6 +1,6 @@
 defmodule AnswercastWeb.SandboxLive do
+  use Phoenix.LiveView, container: {:div, class: "main"}
   alias AnswercastWeb.Router.Helpers, as: Routes
-  use Phoenix.LiveView
   require Logger
 
   def render(assigns) do
