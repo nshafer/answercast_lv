@@ -3,7 +3,7 @@
         <img class="main-header__logo" src="<%= Routes.static_path(@conn, "/static/images/title_color_light.svg") %>"/>
     </a>
 
-    <input class="main-header__menucheckbox" type="checkbox" id="menubutton" name="menubutton" value="1" checked>
+    <input class="main-header__menucheckbox" type="checkbox" id="menubutton" name="menubutton" value="1">
     <label class="main-header__menuicon" for="menubutton">
         <div></div>
     </label>
