@@ -1,0 +1,12 @@
+@import '../variables';
+
+.create-sheet {
+    width: 100%;
+    max-width: 40rem;
+}
+
+.create-sheet__heading {
+    font-size: 1.25rem;
+    color: $gray-40;
+    margin-bottom: 1rem;
+}

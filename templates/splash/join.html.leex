@@ -2,16 +2,20 @@
     <div class="join-stack__item join-stack__item--player <%= @player_stack_classes %>">
         <div class="papersheet rotate-ccw3">
             <div class="papersheet__header">
-                <h1 class="papersheet__heading">Join Game</h1>
-                <button class="btn btn--link" phx-click="change_mode" phx-value-mode="viewer">Watch Game</button>
+                <div class="papersheet__heading">
+                    Join Game
+                </div>
+                <button class="btn btn--link" phx-click="change_mode" phx-value-mode="viewer">
+                    Connect Viewer
+                </button>
             </div>
-            <div class="papersheet__body">
-                <form phx-change="validate" phx-submit="join_player">
+            <form phx-change="validate" phx-submit="join_player">
+                <div class="papersheet__body">
                     <div class="input-group">
                         <label>Game Code</label>
                         <div class="input-badge-wrapper">
                             <input type="text" maxlength="4" name="game_id" value="<%= @game_id %>" />
-                            <% game_found = game_id_found(@game_id) %>
+                            <% game_found = game_id_found?(@game_id) %>
                             <%= if game_found == true do %>
                                 <div class="input-badge input-badge--success">Found!</div>
                             <% end %>
@@ -22,29 +26,43 @@
                     </div>
 
                     <div class="input-group">
-                        <label>Name</label>
-                        <input type="text" maxlength="4" name="name" value="<%= @name %>"/>
+                        <label>Player Name</label>
+                        <div class="input-badge-wrapper">
+                            <input type="text" maxlength="25" name="name" value="<%= @name %>"/>
+                            <% name_in_use = name_in_use?(@game_id, @name) %>
+                            <%= if name_in_use == true do %>
+                                <div class="input-badge input-badge--failure">Name in use</div>
+                            <% end %>
+                        </div>
                     </div>
-
-                    <button class="btn" type="submit" name="submit" <%= if not valid_game_id(@game_id) or not valid_name(@name) do %>disabled="disabled"<% end %>>Join</button>
-                </form>
-            </div>
+                </div>
+                <div class="papersheet__footer">
+                    <button class="btn" type="submit" name="submit"
+                            <%= if not valid_game_id?(@game_id) or not valid_name?(@game_id, @name) do %>disabled="disabled"<% end %>>
+                        Join Game
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
     <div class="join-stack__item join-stack__item--viewer <%= @viewer_stack_classes %>">
         <div class="papersheet rotate-cw4">
             <div class="papersheet__header">
-                <h1 class="papersheet__heading">Watch Game</h1>
-                <button class="btn btn--link" phx-click="change_mode" phx-value-mode="player">Join Game</button>
+                <h1 class="papersheet__heading">
+                    Connect Viewer
+                </h1>
+                <button class="btn btn--link" phx-click="change_mode" phx-value-mode="player">
+                    Join Game
+                </button>
             </div>
-            <div class="papersheet__body">
-                <form phx-change="validate" phx-submit="join_viewer">
+            <form phx-change="validate" phx-submit="join_viewer">
+                <div class="papersheet__body">
                     <div class="input-group">
                         <label>Game Code</label>
                         <div class="input-badge-wrapper">
                         <input type="text" maxlength="4" name="game_id" value="<%= @game_id %>" />
-                            <% game_found = game_id_found(@game_id) %>
+                            <% game_found = game_id_found?(@game_id) %>
                             <%= if game_found == true do %>
                                 <div class="input-badge input-badge--success">Found!</div>
                             <% end %>
@@ -55,10 +73,14 @@
                     </div>
 
                     <input type="hidden" maxlength="4" name="name" value="<%= @name %>"/>
-
-                    <button class="btn" type="submit" name="submit" <%= if not valid_game_id(@game_id) do %>disabled="disabled"<% end %>>View</button>
-                </form>
-            </div>
+                </div>
+                <div class="papersheet__footer">
+                    <button class="btn" type="submit" name="submit"
+                            <%= if not valid_game_id?(@game_id) do %>disabled="disabled"<% end %>>
+                        View Game
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

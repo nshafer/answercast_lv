@@ -1,0 +1,23 @@
+@import '../variables';
+
+.setting {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.setting:last-of-type {
+    margin-bottom: 0;
+}
+
+.setting__label {
+    width: 40%;
+    padding: .5rem 1rem .5rem 0;
+}
+
+.setting__control {
+    width: 60%;
+    text-align: right;
+}

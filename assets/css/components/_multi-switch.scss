@@ -1,0 +1,61 @@
+@import '../variables';
+@import '../mixins/hide-control';
+
+.multi-switch {
+  display: inline-flex;
+  flex-flow: row nowrap;
+  //overflow: hidden;
+}
+
+.multi-switch--stretch {
+  display: flex;
+}
+
+.multi-switch--stretch label {
+  flex: 1;
+}
+
+.multi-switch input {
+  @include hide-control;
+}
+
+.multi-switch label {
+  background-color: $gray-80;
+  color: $gray-20;
+  font-size: 1rem;
+  line-height: 1;
+  text-align: center;
+  padding: .5rem 1rem;
+  border: 2px solid $gray-50;
+}
+
+.multi-switch label ~ label {
+  border-left-color: transparent;
+}
+
+.multi-switch label:hover {
+  cursor: pointer;
+}
+
+.multi-switch input:focus + label {
+  border: 2px solid $primary;
+  box-shadow: 0 0 10px 0 $secondary;
+}
+
+.multi-switch input:checked + label {
+  background-color: $gray-50;
+}
+
+.multi-switch input:disabled + label {
+  cursor: default;
+  background: $gray-70;
+  color: $gray-50;
+}
+
+.multi-switch label:first-of-type {
+  border-radius: .25rem 0 0 .25rem;
+}
+
+.multi-switch label:last-of-type {
+  border-radius: 0 .25rem .25rem 0;
+}

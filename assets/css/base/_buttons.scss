@@ -1,6 +1,7 @@
 @import 'css/variables';
 
 button, .btn {
+    font-size: 1rem;
     background: $gray-80;
     color: $gray-30;
     border: 2px solid $gray-40;
@@ -15,29 +16,31 @@ button, .btn {
         border: 2px solid $primary;
         outline: none;
         box-shadow: 0 0 10px 0 $secondary;
-        color: $primary;
+        background: $bg-primary;
+        color: $gray-20;
         text-decoration: none;
     }
 }
 
-.btn--primary {
-    background: $primary;
-    color: $gray-20;
-}
-
 .btn--link {
-    padding: 0;
     border: none;
     outline: none;
     box-shadow: none;
+    background: transparent;
     color: $primary;
 
     &:hover, &:focus {
         border: none;
         outline: none;
         box-shadow: none;
+        background: transparent;
         color: $secondary;
     }
+}
+
+.btn--sm {
+    font-size: .8rem;
+    padding: .4rem .8rem;
 }
 
 .button:disabled, .btn:disabled {
@@ -57,5 +60,28 @@ button, .btn {
         box-shadow: none;
         text-decoration: none;
         cursor: auto;
+    }
+}
+
+.button-group {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.button-group--spread {
+    justify-content: space-between;
+}
+
+.button-group--split-left {
+    button:first-child, .btn:first-child {
+        margin-right: auto;
+    }
+}
+
+.button-group--split-right {
+    button:last-child, .btn:last-child {
+        margin-left: auto;
     }
 }

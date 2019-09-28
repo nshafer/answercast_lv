@@ -1,11 +1,10 @@
-@import 'css/variables';
+@import '../variables';
 
 .papersheet {
     background: url(../../images/paper.jpg);
+    box-shadow: 5px 5px 25px 5px rgba(0, 0, 0, 0.6);
     color: $gray-20;
     padding: 1rem;
-    // transform: rotate(-1.5deg);
-    box-shadow: 5px 5px 25px 5px rgba(0, 0, 0, 0.6);
 
     a:not(.btn) {
         color: $primary;
@@ -25,6 +24,14 @@
     padding-bottom: .5rem;
 }
 
+.papersheet__footer {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: .5rem;
+}
+
 .papersheet__heading {
     font-size: 1.75rem;
     margin: 0;
@@ -33,4 +40,8 @@
 .papersheet__body {
     border: 1px solid $gray-20;
     padding: 1rem;
+}
+
+.papersheet__body + .papersheet__body {
+    border-top: none;
 }

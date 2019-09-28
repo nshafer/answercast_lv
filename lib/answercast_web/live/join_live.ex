@@ -1,6 +1,10 @@
 defmodule AnswercastWeb.JoinLive do
   use Phoenix.LiveView, container: {:div, class: "main join-stack-container"}
-  import AnswercastWeb.Util
+  alias AnswercastWeb.Router.Helpers, as: Routes
+  require Logger
+
+  alias Answercast.{GameSupervisor,GameManager}
+  import AnswercastWeb.SplashView
 
   @stack_switch_delay 710
 
@@ -28,17 +32,25 @@ defmodule AnswercastWeb.JoinLive do
   end
 
   def handle_event("join_player", %{"game_id" => game_id, "name" => name}, socket) do
-    if valid_game_id(game_id) and valid_name(name) do
-      IO.puts "join_player game: #{game_id} name: #{name}"
+    if valid_game_id?(game_id) and valid_name?(game_id, name) do
+      {:ok, mgr} = GameSupervisor.existing_game(game_id)
+      {:ok, player} = GameManager.add_player(mgr, name)
+      url = Routes.live_path(socket, AnswercastWeb.GameLive, :player, game_id, player.id)
+      {:noreply, live_redirect(socket, to: url)}
+    else
+      {:noreply, socket}
     end
-    {:noreply, socket}
   end
 
   def handle_event("join_viewer", %{"game_id" => game_id}, socket) do
-    if valid_game_id(game_id) do
-      IO.puts "join_viewer game: #{game_id}"
+    if valid_game_id?(game_id) do
+      {:ok, mgr} = GameSupervisor.existing_game(game_id)
+      {:ok, viewer} = GameManager.add_viewer(mgr)
+      url = Routes.live_path(socket, AnswercastWeb.GameLive, :viewer, game_id, viewer.id)
+      {:noreply, live_redirect(socket, to: url)}
+    else
+      {:noreply, socket}
     end
-    {:noreply, socket}
   end
 
   def handle_event("change_mode", %{"mode" => "player"}, socket) do

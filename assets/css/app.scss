@@ -4,16 +4,21 @@
 @import "base/base";
 @import "base/images";
 @import "base/live_view";
+@import "base/clearfix";
 @import "base/forms";
 @import "base/main";
 @import "base/buttons";
 @import "base/dialog";
-@import "base/papersheet";
 @import "base/rotation";
 @import "base/disabled-overlay";
 
 // Components
+@import "components/papersheet";
 @import "components/join-stack";
 @import "components/main-header";
 @import "components/main-menu";
 @import "components/main-footer";
+@import "components/setting";
+@import "components/multi-switch";
+@import "components/toggle-switch";
+@import "components/create-sheet";

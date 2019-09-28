@@ -9,11 +9,21 @@ defmodule Answercast.Client do
     last_update: nil
   )
 
-  def new(id, pid, type, name \\ nil) when type in [:player, :viewer] do
-    %Client{id: id, pid: pid, type: type, name: name, last_update: DateTime.utc_now()}
+  def new(id, type, name \\ nil) when type in [:player, :viewer] do
+    %Client{
+      id: id,
+      type: type,
+      name: name,
+      last_update: DateTime.utc_now(),
+    }
   end
 
   def update(client) do
     %Client{client | last_update: DateTime.utc_now()}
+  end
+
+  def update_pid(client, pid) do
+    update(client)
+    %Client{client | pid: pid}
   end
 end

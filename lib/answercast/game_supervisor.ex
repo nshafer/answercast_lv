@@ -2,6 +2,7 @@ defmodule Answercast.GameSupervisor do
   use DynamicSupervisor
   require Logger
   alias Answercast.{GameManager}
+  import Answercast.Util
 
   def start_link(init_arg) do
     DynamicSupervisor.start_link(__MODULE__, init_arg, name: __MODULE__)
@@ -27,10 +28,11 @@ defmodule Answercast.GameSupervisor do
     end
   end
 
-  def existing_game!(game_id) do
-    case existing_game(game_id) do
-      {:ok, game} -> game
-      {:error, :game_does_not_exist} -> raise "Game does not exist: #{inspect game_id}"
+  def new_game() do
+    game_id = generate_new_game_id()
+    case start_child(game_id) do
+      {:ok, pid} -> {:ok, pid, game_id}
+      {:error, {:already_started, _pid}} -> new_game()
     end
   end
 
@@ -42,13 +44,6 @@ defmodule Answercast.GameSupervisor do
         {:ok, pid} -> {:ok, pid}
         {:error, {:already_started, pid}} -> {:ok, pid}
       end
-    end
-  end
-
-  def new_game!(game_id) do
-    case new_game(game_id) do
-      {:ok, pid} -> pid
-      {:error, :game_exists} -> raise "Game already exists: #{inspect game_id}"
     end
   end
 

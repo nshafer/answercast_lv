@@ -6,29 +6,73 @@ defmodule Answercast.Game do
     id: nil,
     hashids: nil,
     status: :idle,
-    clients: [],
+    started: nil,
+    last_update: nil,
+    clients: %{},
     settings: %GameSettings{}
   )
 
-  def new(game_id) do
-    %Game{id: game_id, hashids: Hashids.new(salt: game_id, min_len: 4)}
+  def normalize_game_id(game_id) when is_binary(game_id) do
+    game_id |> String.trim() |> String.slice(0..3) |> String.upcase()
   end
 
-  def add_client(game, pid, type, name \\ nil) do
+  def normalize_name(name) when is_binary(name) do
+    name |> String.trim() |> String.upcase()
+  end
+
+  def new(game_id) do
+    %Game{
+      id: game_id,
+      started: DateTime.utc_now(),
+      last_update: DateTime.utc_now(),
+      hashids: Hashids.new(salt: game_id, min_len: 4)
+    }
+  end
+
+  def change_settings(game, %GameSettings{} = settings) do
+    %Game{game | settings: settings}
+  end
+
+  def update(game) do
+    %Game{game | last_update: DateTime.utc_now()}
+  end
+
+  def add_client(game, type, name \\ nil) do
+    update(game)
     client_id = Hashids.encode(game.hashids, System.unique_integer([:positive, :monotonic]))
-    new_client = Client.new(client_id, pid, type, name)
-    {new_client, %Game{game | clients: [new_client | game.clients]}}
+    new_client = Client.new(client_id, type, name)
+    {new_client, %Game{game | clients: Map.put(game.clients, new_client.id, new_client)}}
+  end
+
+  def update_client(game, client) do
+    %Game{game | clients: Map.put(game.clients, client.id, client)}
+  end
+
+  def remove_client(game, client) do
+    %Game{game | clients: Map.delete(game.clients, client.id)}
   end
 
   def clients(game) do
-    game.clients
+    Map.values(game.clients)
   end
 
   def clients(game, type) do
     if type do
-      Enum.filter(game.clients, fn client -> client.type == type end)
+      clients(game)
+      |> Enum.filter(fn client -> client.type == type end)
     else
-      game.clients
+      clients(game)
     end
+  end
+
+  def get_client_by_id(game, client_id) do
+    Map.get(game.clients, client_id)
+  end
+
+  def get_client_by_name(game, name) do
+    normalized_name = normalize_name(name)
+
+    clients(game, :player)
+    |> Enum.find(fn client -> normalize_name(client.name) == normalized_name end)
   end
 end

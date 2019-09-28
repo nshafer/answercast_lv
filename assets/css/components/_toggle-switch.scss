@@ -1,0 +1,60 @@
+@import '../variables';
+@import '../mixins/hide-control';
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 4rem;
+  height: 2rem;
+}
+
+.toggle-switch input {
+  @include hide-control;
+}
+
+.toggle-switch__slider {
+  content: "";
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $gray-80;
+  border: 2px solid $gray-50;
+  transition: background-color .4s;
+  border-radius: .25rem;
+}
+
+.toggle-switch__slider:before {
+  content: "";
+  position: absolute;
+  height: 22px;
+  width: 26px;
+  left: 4px;
+  bottom: 3px;
+  background-color: $gray-90;
+  transition: .4s;
+  border-radius: .25rem;
+  border: 1px solid $gray-50;
+}
+
+.toggle-switch input:checked + .toggle-switch__slider {
+  background-color: $gray-50;
+}
+
+.toggle-switch input:focus + .toggle-switch__slider {
+  border: 2px solid $primary;
+  box-shadow: 0 0 10px 0 $secondary;
+}
+
+.toggle-switch input:disabled + .toggle-switch__slider {
+  cursor: default;
+  background: $gray-70;
+  color: $gray-50;
+}
+
+.toggle-switch input:checked:not(:disabled) + .toggle-switch__slider:before {
+  transform: translateX(1.7rem);
+  //background-color: $gray-90;
+}

@@ -1,6 +1,6 @@
 @import 'css/variables';
 
-input,
+input:not([type=checkbox]):not([type=radio]),
 select,
 textarea {
   background: transparent;
@@ -17,6 +17,13 @@ textarea {
     border: 2px solid $primary;
     box-shadow: 0 0 10px 0 $secondary;
   }
+}
+
+input:not([type=checkbox]):not([type=radio]):disabled,
+select:disabled,
+textarea:disabled {
+  background: $gray-70;
+  color: $gray-50;
 }
 
 .input-badge-wrapper {

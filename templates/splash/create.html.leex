@@ -1,0 +1,81 @@
+<form class="create-sheet" phx-change="validate" phx-submit="create_game">
+    <div class="papersheet rotate-cw1">
+        <div class="papersheet__header">
+            <h1 class="papersheet__heading">Create Game</h1>
+        </div>
+
+        <div class="papersheet__body">
+            <div class="setting">
+                <div class="setting__label">Join game as</div>
+                <div class="setting__control">
+                    <div class="multi-switch">
+                        <input id="client_type_player" type="radio" name="client_type" value="player" checked>
+                        <label for="client_type_player">Player</label>
+
+                        <input id="client_type_viewer" type="radio" name="client_type" value="viewer">
+                        <label for="client_type_viewer">Viewer</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="setting">
+                <label for="name" class="setting__label">Player Name</label>
+                <div class="setting__control">
+                    <input id="name" type="text" maxlength="4" name="name" value="" required
+                           <%= if @client_type != "player" do %>disabled<% end %>/>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="papersheet__body">
+            <div class="create-sheet__heading">Advanced settings coming soon...</div>
+
+            <div class="setting">
+                <label for="game_preset" class="setting__label">Game Preset</label>
+                <div class="setting__control">
+                    <select id="game_preset" name="game_preset" disabled>
+                        <option value="">Balderdash</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="setting">
+                <div class="setting__label">Keep Score</div>
+                <div class="setting__control">
+                    <label class="toggle-switch">
+                        <input type="checkbox" name="keep_score" value="1" disabled/>
+                        <span class="toggle-switch__slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="setting">
+                <div class="setting__label">Remove Duplicates</div>
+                <div class="setting__control">
+                    <label class="toggle-switch">
+                        <input type="checkbox" name="remove_duplicates" value="1" checked disabled/>
+                        <span class="toggle-switch__slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="setting">
+                <div class="setting__label">Result Click Action</div>
+                <div class="setting__control">
+                    <div class="multi-switch">
+                        <input id="result_click_action_select" type="radio" name="result_click_action" value="select" checked disabled>
+                        <label for="result_click_action_select">Select</label>
+
+                        <input id="result_click_action_remove" type="radio" name="result_click_action" value="remove" disabled>
+                        <label for="result_click_action_remove">Remove</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="papersheet__footer">
+            <button class="btn" type="submit">Create New Game</button>
+        </div>
+    </div>
+</form>

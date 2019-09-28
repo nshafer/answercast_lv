@@ -14,6 +14,8 @@ defmodule AnswercastWeb.Router do
     pipe_through :browser
 
     live "/", JoinLive
+    live "/create", CreateLive
+    live "/:type/:game_id/:client_id", GameLive
 
     get "/about", PageController, :about
 

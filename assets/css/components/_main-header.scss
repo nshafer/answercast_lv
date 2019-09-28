@@ -1,4 +1,5 @@
 @import 'css/variables';
+@import '../mixins/hide-control';
 
 .main-header {
   flex: 0 0 $header-height;
@@ -57,16 +58,7 @@
 }
 
 .main-header__menucheckbox {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  left: -9999px;
-  top: -9999px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0,0,0,0);
-  border: 0;
+  @include hide-control;
 
   // debug
   //width: 10px;

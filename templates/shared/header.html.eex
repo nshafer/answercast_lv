@@ -12,9 +12,10 @@
         <div class="main-menu">
             <ul class="main-menu__list">
                 <li class="main-menu__item">
-                    <a class="main-menu__link" href="<%= Routes.page_path(@conn, :about) %>">
-                        About
-                    </a>
+                    <%= link "About", class: "main-menu__link", to: Routes.page_path(@conn, :about) %>
+                </li>
+                <li class="main-menu__item">
+                    <%= link "New Game", class: "main-menu__link", to: Routes.live_path(@conn, AnswercastWeb.CreateLive) %>
                 </li>
             </ul>
         </div>
