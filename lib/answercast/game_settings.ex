@@ -4,6 +4,6 @@ defmodule Answercast.GameSettings do
     max_viewers: 1,
 
     # TODO: increase this for realistic conditions
-    client_timeout: 60 * 5
+    client_timeout: 60
   )
 end

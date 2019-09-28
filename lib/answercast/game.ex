@@ -12,14 +12,6 @@ defmodule Answercast.Game do
     settings: %GameSettings{}
   )
 
-  def normalize_game_id(game_id) when is_binary(game_id) do
-    game_id |> String.trim() |> String.slice(0..3) |> String.upcase()
-  end
-
-  def normalize_name(name) when is_binary(name) do
-    name |> String.trim() |> String.upcase()
-  end
-
   def new(game_id) do
     %Game{
       id: game_id,
@@ -29,28 +21,31 @@ defmodule Answercast.Game do
     }
   end
 
-  def change_settings(game, %GameSettings{} = settings) do
-    %Game{game | settings: settings}
-  end
-
-  def update(game) do
+  def refresh(game) do
     %Game{game | last_update: DateTime.utc_now()}
   end
 
+  # Mutators
+
+  def change_settings(game, %GameSettings{} = settings) do
+    %Game{refresh(game) | settings: settings}
+  end
+
   def add_client(game, type, name \\ nil) do
-    update(game)
     client_id = Hashids.encode(game.hashids, System.unique_integer([:positive, :monotonic]))
     new_client = Client.new(client_id, type, name)
-    {new_client, %Game{game | clients: Map.put(game.clients, new_client.id, new_client)}}
+    {new_client, %Game{refresh(game) | clients: Map.put(game.clients, new_client.id, new_client)}}
   end
 
   def update_client(game, client) do
-    %Game{game | clients: Map.put(game.clients, client.id, client)}
+    %Game{refresh(game) | clients: Map.put(game.clients, client.id, client)}
   end
 
   def remove_client(game, client) do
-    %Game{game | clients: Map.delete(game.clients, client.id)}
+    %Game{refresh(game) | clients: Map.delete(game.clients, client.id)}
   end
+
+  # Accessors
 
   def clients(game) do
     Map.values(game.clients)
@@ -74,5 +69,14 @@ defmodule Answercast.Game do
 
     clients(game, :player)
     |> Enum.find(fn client -> normalize_name(client.name) == normalized_name end)
+  end
+
+  # Utils
+  def normalize_game_id(game_id) when is_binary(game_id) do
+    game_id |> String.trim() |> String.slice(0..3) |> String.upcase()
+  end
+
+  def normalize_name(name) when is_binary(name) do
+    name |> String.trim() |> String.upcase()
   end
 end

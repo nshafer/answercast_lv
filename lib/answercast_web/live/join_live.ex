@@ -35,8 +35,8 @@ defmodule AnswercastWeb.JoinLive do
     if valid_game_id?(game_id) and valid_name?(game_id, name) do
       {:ok, mgr} = GameSupervisor.existing_game(game_id)
       {:ok, player} = GameManager.add_player(mgr, name)
-      url = Routes.live_path(socket, AnswercastWeb.GameLive, :player, game_id, player.id)
-      {:noreply, live_redirect(socket, to: url)}
+      url = Routes.live_path(socket, AnswercastWeb.GameLive,  game_id, :player,player.id)
+      {:noreply, redirect(socket, to: url)}
     else
       {:noreply, socket}
     end
@@ -46,8 +46,8 @@ defmodule AnswercastWeb.JoinLive do
     if valid_game_id?(game_id) do
       {:ok, mgr} = GameSupervisor.existing_game(game_id)
       {:ok, viewer} = GameManager.add_viewer(mgr)
-      url = Routes.live_path(socket, AnswercastWeb.GameLive, :viewer, game_id, viewer.id)
-      {:noreply, live_redirect(socket, to: url)}
+      url = Routes.live_path(socket, AnswercastWeb.GameLive, game_id, :viewer, viewer.id)
+      {:noreply, redirect(socket, to: url)}
     else
       {:noreply, socket}
     end

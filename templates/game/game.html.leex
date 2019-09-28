@@ -1,1 +1,12 @@
-<h1>Game!</h1>
+<div class="papersheet">
+    <div class="papersheet__header">
+        <div class="papersheet__heading">
+            Players
+        </div>
+    </div>
+    <div class="papersheet__body">
+        <%= for player <- get_players(@game) do %>
+          <%= player.name %> <%= if is_connected?(player) do %>(Connected)<%= end %><br/>
+        <%= end %>
+    </div>
+</div>

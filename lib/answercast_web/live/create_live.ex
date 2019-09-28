@@ -19,11 +19,6 @@ defmodule AnswercastWeb.CreateLive do
     {:ok, socket}
   end
 
-  def handle_params(params, _url, socket) do
-    Logger.debug("handle_params: #{inspect(params)}")
-    {:noreply, socket}
-  end
-
   def handle_event("validate", params, socket) do
     socket =
       socket
@@ -42,9 +37,9 @@ defmodule AnswercastWeb.CreateLive do
       {:ok, client} = GameManager.add_client(mgr, client_type, params["name"])
       Logger.debug("Joined to game: #{client.id}")
 
-      url = Routes.live_path(socket, AnswercastWeb.GameLive, client_type, game_id, client.id)
+      url = Routes.live_path(socket, AnswercastWeb.GameLive, game_id, client_type, client.id)
       Logger.debug("Redirecting to #{url}")
-      {:noreply, live_redirect(socket, to: url)}
+      {:noreply, redirect(socket, to: url)}
     else
       {:noreply, socket}
     end

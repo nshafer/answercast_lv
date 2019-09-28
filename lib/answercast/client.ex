@@ -18,12 +18,15 @@ defmodule Answercast.Client do
     }
   end
 
-  def update(client) do
+  def refresh(client) do
     %Client{client | last_update: DateTime.utc_now()}
   end
 
-  def update_pid(client, pid) do
-    update(client)
-    %Client{client | pid: pid}
+  def update_pid(client, pid) when is_pid(pid) or pid == nil do
+    %Client{refresh(client) | pid: pid}
+  end
+
+  def is_connected?(client) do
+    client.pid != nil
   end
 end

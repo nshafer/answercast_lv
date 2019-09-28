@@ -86,6 +86,14 @@ defmodule Answercast.GameManager do
     GenServer.call(pid, {:connect, client_id})
   end
 
+  def disconnect(pid, client) do
+    GenServer.call(pid, {:disconnect, client})
+  end
+
+  def ping(pid, client) do
+    GenServer.call(pid, {:ping, client})
+  end
+
   # Settings
 
   def settings(pid) do
@@ -140,10 +148,25 @@ defmodule Answercast.GameManager do
       client ->
          new_client = Client.update_pid(client, pid)
          new_game = Game.update_client(game, new_client)
-         Logger.debug("GameManager connect client: #{inspect new_client} game: #{inspect game}}")
+         Logger.debug("GameManager [#{game.id} connect client: #{new_client.id} name: #{client.name}")
          broadcast(new_game, {:connect, new_client, new_game})
          {:reply, {:ok, new_client, new_game}, new_game}
     end
+  end
+
+  def handle_call({:disconnect, client}, _from, game) do
+    new_client = Client.update_pid(client, nil)
+    new_game = Game.update_client(game, new_client)
+    Logger.debug("GameManager [#{game.id} disconnect client: #{new_client.id} name: #{client.name}")
+    broadcast(new_game, {:disconnect, new_client, new_game})
+    {:reply, {:ok, new_client, new_game}, new_game}
+  end
+
+  def handle_call({:ping, client}, _from, game) do
+    new_client = Client.refresh(client)
+    new_game = Game.update_client(game, new_client)
+#    Logger.debug("GameManager [#{game.id} ping client: #{new_client.id} name: #{client.name}")
+    {:reply, {:ok, new_client, new_game}, new_game}
   end
 
   #
@@ -234,9 +257,11 @@ defmodule Answercast.GameManager do
 
     Game.clients(game)
       |> Stream.filter(fn client -> DateTime.diff(now, client.last_update) > game.settings.client_timeout end)
-      |> Stream.each(fn client ->
+      |> Enum.reduce(game, fn client, game ->
         Logger.info("Client timeout Game:#{game.id} Client:#{client.id} type:#{client.type} name:#{client.name}")
+        new_game = Game.remove_client(game, client)
+        broadcast(game, {:leave, client.type, client, new_game})
+        new_game
       end)
-      |> Enum.reduce(game, fn client, game -> Game.remove_client(game, client) end)
   end
 end
