@@ -117,9 +117,9 @@ defmodule Answercast.GameManager do
   end
 
   def handle_call({:add_client, type, name}, _from, game) do
-    Logger.debug("GameManager.add_client #{type} #{name}")
+    Logger.debug("GameManager [#{game.id}] add_client type:#{type} name:#{name}")
     {new_client, new_game} = Game.add_client(game, type, name)
-    broadcast(new_game, {:join, type, new_client, new_game})
+    broadcast(new_game, {:join, new_client, new_game})
     {:reply, {:ok, new_client}, new_game}
   end
 
@@ -128,7 +128,7 @@ defmodule Answercast.GameManager do
   end
 
   def handle_call({:change_settings, settings}, _from, game) do
-    Logger.debug("GameManager.change_settings #{inspect settings}")
+    Logger.debug("GameManager [#{game.id}] change_settings settings:#{inspect settings}")
     game = Game.change_settings(game, settings)
     broadcast(game, {:settings_changed, settings})
     {:reply, :ok, game}
@@ -148,7 +148,7 @@ defmodule Answercast.GameManager do
       client ->
          new_client = Client.update_pid(client, pid)
          new_game = Game.update_client(game, new_client)
-         Logger.debug("GameManager [#{game.id} connect client: #{new_client.id} name: #{client.name}")
+         Logger.debug("GameManager [#{game.id}] connect client: #{new_client.id} name: #{client.name}")
          broadcast(new_game, {:connect, new_client, new_game})
          {:reply, {:ok, new_client, new_game}, new_game}
     end
@@ -157,7 +157,7 @@ defmodule Answercast.GameManager do
   def handle_call({:disconnect, client}, _from, game) do
     new_client = Client.update_pid(client, nil)
     new_game = Game.update_client(game, new_client)
-    Logger.debug("GameManager [#{game.id} disconnect client: #{new_client.id} name: #{client.name}")
+    Logger.debug("GameManager [#{game.id}] disconnect client: #{new_client.id} name: #{client.name}")
     broadcast(new_game, {:disconnect, new_client, new_game})
     {:reply, {:ok, new_client, new_game}, new_game}
   end
@@ -174,7 +174,7 @@ defmodule Answercast.GameManager do
   #
 
   def handle_call(:crash, from, game) do
-    Logger.debug("Handling :crash")
+    Logger.debug("GameManager [#{game.id}] crash")
     if game.id == "TEST" do
       GenServer.reply(from, :ok)
       raise("crash")
@@ -260,7 +260,7 @@ defmodule Answercast.GameManager do
       |> Enum.reduce(game, fn client, game ->
         Logger.info("Client timeout Game:#{game.id} Client:#{client.id} type:#{client.type} name:#{client.name}")
         new_game = Game.remove_client(game, client)
-        broadcast(game, {:leave, client.type, client, new_game})
+        broadcast(game, {:leave, client, new_game})
         new_game
       end)
   end

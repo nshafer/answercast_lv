@@ -7,7 +7,6 @@
 @import "base/clearfix";
 @import "base/forms";
 @import "base/main";
-@import "base/game";
 @import "base/buttons";
 @import "base/dialog";
 @import "base/rotation";
@@ -15,11 +14,19 @@
 
 // Components
 @import "components/papersheet";
-@import "components/join-stack";
+@import "components/multi-switch";
+@import "components/toggle-switch";
+@import "components/setting";
+@import "components/menu-icon";
 @import "components/main-header";
 @import "components/main-menu";
 @import "components/main-footer";
-@import "components/setting";
-@import "components/multi-switch";
-@import "components/toggle-switch";
+@import "components/join-stack";
 @import "components/create-sheet";
+@import "components/gameboard";
+@import "components/game-header";
+@import "components/game-control";
+@import "components/game-menu";
+@import "components/answerboard";
+@import "components/scoreboard";
+@import "components/query";

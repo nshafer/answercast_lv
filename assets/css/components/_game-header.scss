@@ -1,0 +1,45 @@
+@import '../variables';
+
+.game-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: $game-header-height;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.4);
+    color: $gray-80;
+    padding: 0 1rem;
+    z-index: 500;
+}
+
+.game-header__logo {
+    height: 80%;
+    width: auto;
+}
+
+.game-header__gameid {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+.game-header__gameid__label {
+    font-size: .75rem;
+    line-height: 1;
+    white-space: nowrap;
+    margin-bottom: .25rem;
+}
+
+.game-header__gameid__value {
+    font-family: monospace;
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.game-header__gamecontrol {
+    margin-left: auto;
+}

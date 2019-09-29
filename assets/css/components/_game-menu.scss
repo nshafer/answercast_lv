@@ -1,0 +1,44 @@
+@import 'css/variables';
+
+.game-menu {
+  background: url(../../images/paper.jpg);
+  color: $gray-20;
+  padding: 1rem;
+  box-shadow: 5px 5px 25px 5px rgba(0, 0, 0, 0.6);
+}
+
+.game-menu__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid $gray-20;
+  height: 100%;
+}
+
+.game-menu__item {
+}
+
+.game-menu__item ~ .game-menu__item {
+  border-top: 1px solid $gray-20;
+}
+
+.game-menu__button {
+  background: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  line-height: 1.1;
+  border: none;
+  padding: .5rem 2rem;
+  width: 100%;
+  box-shadow: none;
+
+  &:hover, &:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background: rgba(0,0,0,0.1);
+    color: $gray-20;
+    text-decoration: none;
+  }
+}
+

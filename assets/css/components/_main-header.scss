@@ -16,7 +16,7 @@
   transition: background .2s;
   padding: 0 1rem;
   overflow: hidden;
-  z-index: 100;
+  z-index: 500;
 
   body.is-scrolled & {
     background: rgba(0,0,0,0.8);
@@ -48,7 +48,7 @@
     width: 100%;
     height: calc(100% - #{$header-height});
     padding: 1rem;
-    z-index: 99;
+    z-index: 600;
   }
 
   @media (min-width: $header-lg) {
@@ -57,51 +57,14 @@
   }
 }
 
-.main-header__menucheckbox {
-  @include hide-control;
-
-  // debug
-  //width: 10px;
-  //height: 10px;
-  //top: 0;
-  //left: 0;
-}
-
 .main-header__menuicon {
   display: block;
   @media (min-width: $header-lg) {
     display: none;
   }
-
-  width: 2rem;
-  margin: 0;
-
-  &:before, &:after, div {
-    background-color: $white;
-    border-radius: 1px;
-    content: '';
-    display: block;
-    height: 4px;
-    margin: 7px 0;
-    transition: all .3s ease-in-out;
-  }
-
 }
 
 @media (max-width: $header-lg) {
-  .main-header__menucheckbox:checked ~ .main-header__menuicon {
-    &:before {
-      transform: translateY(11px) rotate(135deg);
-    }
-
-    &:after {
-      transform: translateY(-11px) rotate(-135deg);
-    }
-
-    & div {
-      transform: scale(0);
-    }
-  }
   .main-header__menucheckbox:checked ~ .main-header__menu {
     transform: translateX(0%);
   }

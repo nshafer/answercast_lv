@@ -1,6 +1,6 @@
 defmodule AnswercastWeb.GameView do
   use AnswercastWeb, :view
-  alias Answercast.{Game,GameSettings,Client}
+  alias Answercast.{Game,Client}
 
   def get_players(game) do
     Game.clients(game, :player)

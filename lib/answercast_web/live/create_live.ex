@@ -6,10 +6,6 @@ defmodule AnswercastWeb.CreateLive do
   alias Answercast.{GameSupervisor,GameManager}
   import AnswercastWeb.SplashView
 
-  def render(assigns) do
-    AnswercastWeb.SplashView.render("create.html", assigns)
-  end
-
   def mount(_session, socket) do
     socket =
       socket
@@ -17,6 +13,10 @@ defmodule AnswercastWeb.CreateLive do
       |> assign(:name, "")
 
     {:ok, socket}
+  end
+
+  def render(assigns) do
+    AnswercastWeb.SplashView.render("create.html", assigns)
   end
 
   def handle_event("validate", params, socket) do
@@ -37,7 +37,7 @@ defmodule AnswercastWeb.CreateLive do
       {:ok, client} = GameManager.add_client(mgr, client_type, params["name"])
       Logger.debug("Joined to game: #{client.id}")
 
-      url = Routes.live_path(socket, AnswercastWeb.GameLive, game_id, client_type, client.id)
+      url = Routes.live_path(socket, AnswercastWeb.GameLive, game_id, client.id)
       Logger.debug("Redirecting to #{url}")
       {:noreply, redirect(socket, to: url)}
     else

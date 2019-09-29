@@ -8,10 +8,6 @@ defmodule AnswercastWeb.JoinLive do
 
   @stack_switch_delay 710
 
-  def render(assigns) do
-    AnswercastWeb.SplashView.render("join.html", assigns)
-  end
-
   def mount(_session, socket) do
     socket =
       socket
@@ -21,6 +17,10 @@ defmodule AnswercastWeb.JoinLive do
       |> assign(:game_id, "")
       |> assign(:name, "")
     {:ok, socket}
+  end
+
+  def render(assigns) do
+    AnswercastWeb.SplashView.render("join.html", assigns)
   end
 
   def handle_event("validate", params, socket) do
@@ -35,7 +35,7 @@ defmodule AnswercastWeb.JoinLive do
     if valid_game_id?(game_id) and valid_name?(game_id, name) do
       {:ok, mgr} = GameSupervisor.existing_game(game_id)
       {:ok, player} = GameManager.add_player(mgr, name)
-      url = Routes.live_path(socket, AnswercastWeb.GameLive,  game_id, :player,player.id)
+      url = Routes.live_path(socket, AnswercastWeb.GameLive,  game_id, player.id)
       {:noreply, redirect(socket, to: url)}
     else
       {:noreply, socket}
@@ -46,7 +46,7 @@ defmodule AnswercastWeb.JoinLive do
     if valid_game_id?(game_id) do
       {:ok, mgr} = GameSupervisor.existing_game(game_id)
       {:ok, viewer} = GameManager.add_viewer(mgr)
-      url = Routes.live_path(socket, AnswercastWeb.GameLive, game_id, :viewer, viewer.id)
+      url = Routes.live_path(socket, AnswercastWeb.GameLive, game_id, viewer.id)
       {:noreply, redirect(socket, to: url)}
     else
       {:noreply, socket}

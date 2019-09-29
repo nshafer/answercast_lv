@@ -1,0 +1,45 @@
+@import 'css/variables';
+@import '../mixins/hide-control';
+
+.menu-icon {
+  display: block;
+  width: 2rem;
+  margin: 0;
+  cursor: pointer;
+
+  &:before, &:after, span {
+    background-color: $white;
+    border-radius: 1px;
+    content: '';
+    display: block;
+    height: 4px;
+    margin: 7px 0;
+    transition: all .3s ease-in-out;
+  }
+
+}
+
+.menu-icon__checkbox {
+  @include hide-control;
+
+  // debug
+  //width: 10px;
+  //height: 10px;
+  //top: 0;
+  //left: 0;
+  //clip: auto;
+}
+
+.menu-icon__checkbox:checked ~ .menu-icon {
+  &:before {
+    transform: translateY(11px) rotate(135deg);
+  }
+
+  &:after {
+    transform: translateY(-11px) rotate(-135deg);
+  }
+
+  & span {
+    transform: scale(0);
+  }
+}

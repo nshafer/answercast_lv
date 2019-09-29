@@ -1,0 +1,16 @@
+<div class="scoreboard">
+    <div class="scoreboard__content">
+        <div class="scoreboard__header">
+            <div class="papersheet__heading">
+                Players
+            </div>
+        </div>
+        <div class="scoreboard__body">
+            <%= for player <- get_players(@game) do %>
+                <div class="scoreboard__player">
+                    <%= player.name %> <%= if is_connected?(player) do %>(Connected)<%= end %>
+                </div>
+            <%= end %>
+        </div>
+    </div>
+</div>

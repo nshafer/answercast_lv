@@ -34,6 +34,6 @@ defmodule AnswercastWeb.Router do
     pipe_through [:browser, :game]
 
     # Main game interface
-    live "/game/:game_id/:type/:client_id", GameLive
+    live "/game/:game_id/:client_id", GameLive
   end
 end
