@@ -8,7 +8,11 @@ const liveSocket = new LiveSocket("/live", Socket);
 liveSocket.connect();
 
 // Initialize the scroll detection
-import detectScroll from "./scroll-detector";
+import detectScroll from "./scroll_detector";
 detectScroll();
+
+// Initialize support for checkbox menus
+import checkboxMenu from "./checkbox_menu";
+checkboxMenu();
 
 console.log("app.js loaded", css);
