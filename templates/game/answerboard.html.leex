@@ -1,8 +1,12 @@
 <div class="answerboard <%= @type %>">
-    <%= for answer <- @game.answers do %>
-        <div class="answerboard__answer">
-            <%= answer %>
-        </div>
+    <%= if length(@game.answers) > 0 do %>
+        <%= for answer <- @game.answers do %>
+            <div class="answerboard__answer">
+                <%= answer %>
+            </div>
+        <% end %>
+    <% else %>
+      No answers found...
     <% end %>
 
     <!--
