@@ -1,4 +1,4 @@
-# AnswerCast - 
+# AnswerCast
 
 Play question and answer board games with your friends and a Google Cast device!
 
@@ -16,6 +16,7 @@ Connect any other device with a screen as a Viewer so you can project the result
 It’s the perfect companion for games such as “The Game of Things” or “Loaded Questions” and many others.
 
 Board games known to be enhanced by the usage of this app:
+
 -  "The Game of Things" by Parker Brothers
 -  "Loaded Questions" by All Things Equal, Inc
 -  "Balderdash" by Mattel
