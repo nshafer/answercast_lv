@@ -40,6 +40,7 @@
     border: 2px solid rgba(255,255,255,0.5);
     outline: none;
     color: $gray-90;
+    white-space: nowrap;
 
     &:hover, &:focus {
         border: 2px solid rgba(255,255,255,0.5);
@@ -63,6 +64,15 @@
         bottom: auto;
         top: calc(#{$game-control-height} + 1rem);
         right: 1rem;
+
+        .game-menu__list {
+            flex-direction: column-reverse;
+        }
+
+        .game-menu__item ~ .game-menu__item {
+            border-top: none;
+            border-bottom: 1px solid $gray-20;
+        }
     }
 }
 

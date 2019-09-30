@@ -9,9 +9,24 @@
     <%= if @type == :player do %>
         <div class="game-header__gamecontrol game-control">
             <div class="game-control__buttons">
-                <button class="game-control__button">
-                    Start Round
-                </button>
+                <%= if @game.state == :idle do %>
+                    <button class="game-control__button" phx-click="start_round">
+                        Start Round
+                    </button>
+                <% end %>
+                <%= if @game.state == :poll do %>
+                    <button class="game-control__button" phx-click="cancel_round">
+                        Cancel Round
+                    </button>
+                    <button class="game-control__button" phx-click="end_round">
+                        End Round
+                    </button>
+                <% end %>
+                <%= if @game.state == :results do %>
+                    <button class="game-control__button" phx-click="start_round">
+                        Start Round
+                    </button>
+                <% end %>
             </div>
 
             <input class="game-control__menucheckbox menu-icon__checkbox" type="checkbox" id="gamemenubutton" name="gamemenubutton" value="1">
@@ -23,10 +38,7 @@
                 <ul class="game-menu">
                     <ul class="game-menu__list">
                         <li class="game-menu__item">
-                            <button class="game-menu__button" data-checkbox-menu-close="#gamemenubutton">Leave Game</button>
-                        </li>
-                        <li class="game-menu__item">
-                            <button class="game-menu__button" data-checkbox-menu-close="#gamemenubutton">End Round</button>
+                            <button class="game-menu__button" data-checkbox-menu-close="#gamemenubutton" phx-click="leave">Leave Game</button>
                         </li>
                     </ul>
                 </ul>

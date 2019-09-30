@@ -5,7 +5,7 @@ defmodule Answercast.GameManager do
   alias Answercast.{GameRegistry, Game, Client, GameSettings}
 
   @valid_game_states Game.valid_states()
-  @valid_answer_states Client.valid_answer_states()
+#  @valid_answer_states Client.valid_answer_states()
 
   #
   # Client interface
@@ -69,6 +69,18 @@ defmodule Answercast.GameManager do
     add_client(pid, :viewer, nil)
   end
 
+  def remove_client(pid, client) do
+    GenServer.call(pid, {:remove_client, client})
+  end
+
+  def remove_player(pid, player) do
+    remove_client(pid, player)
+  end
+
+  def remove_viewer(pid, viewer) do
+    remove_client(pid, viewer)
+  end
+
   def get_client_by_id(pid, client_id) do
     GenServer.call(pid, {:get_client_by_id, client_id})
   end
@@ -127,7 +139,15 @@ defmodule Answercast.GameManager do
     Logger.debug("GameManager [#{game.id}] add_client type:#{type} name:#{name}")
     {new_client, new_game} = Game.add_client(game, type, name)
     broadcast(new_game, {:join, new_client, new_game})
-    {:reply, {:ok, new_client}, new_game}
+    {:reply, {:ok, new_client, new_game}, new_game}
+  end
+
+  def handle_call({:remove_client, client}, _from, game) do
+    Logger.debug("GameManager [#{game.id}] remove_client id: #{client.id} type:#{client.type} name:#{client.name}")
+    new_game = Game.remove_client(game, client)
+    broadcast(game, {:leave, client, new_game})  # broadcast to the original game so the client gets it as well
+    Logger.debug("GameManager [#{game.id}] clients now: #{inspect Game.clients(new_game)}")
+    {:reply, {:ok, new_game}, new_game}
   end
 
   def handle_call(:get_settings, _from, game) do
@@ -136,9 +156,9 @@ defmodule Answercast.GameManager do
 
   def handle_call({:change_settings, settings}, _from, game) do
     Logger.debug("GameManager [#{game.id}] change_settings settings:#{inspect settings}")
-    game = Game.change_settings(game, settings)
-    broadcast(game, {:settings_changed, settings})
-    {:reply, :ok, game}
+    new_game = Game.change_settings(game, settings)
+    broadcast(game, {:settings_changed, settings, new_game})
+    {:reply, :ok, new_game}
   end
 
   def handle_call({:get_client_by_id, client_id}, _from, game) do
@@ -162,24 +182,37 @@ defmodule Answercast.GameManager do
   end
 
   def handle_call({:disconnect, client}, _from, game) do
-    new_client = Client.update_pid(client, nil)
-    new_game = Game.update_client(game, new_client)
-    Logger.debug("GameManager [#{game.id}] disconnect client: #{new_client.id} name: #{client.name}")
-    broadcast(new_game, {:disconnect, new_client, new_game})
-    {:reply, {:ok, new_client, new_game}, new_game}
+    case Game.get_client_by_id(game, client.id) do
+      nil -> {:reply, {:error, :client_not_found}, game}
+      client ->
+        new_client = Client.update_pid(client, nil)
+        new_game = Game.update_client(game, new_client)
+        Logger.debug("GameManager [#{game.id}] disconnect client: #{new_client.id} name: #{client.name}")
+        broadcast(new_game, {:disconnect, new_client, new_game})
+        {:reply, {:ok, new_client, new_game}, new_game}
+    end
   end
 
   def handle_call({:ping, client}, _from, game) do
-    new_client = Client.refresh(client)
-    new_game = Game.update_client(game, new_client)
-#    Logger.debug("GameManager [#{game.id} ping client: #{new_client.id} name: #{client.name}")
-    {:reply, {:ok, new_client, new_game}, new_game}
+    Logger.debug("GameManager [#{game.id} ping client: #{client.id} name: #{client.name}")
+    with real_client when real_client != nil <- Game.get_client_by_id(game, client.id),
+         new_client <- Client.refresh(real_client),
+         new_game = Game.update_client(game, new_client) do
+      {:reply, {:ok, new_client, new_game}, new_game}
+    else
+      nil -> {:reply, {:error, :client_not_connected}, game}
+      error -> {:reply, {:error, error}, game}
+    end
   end
 
   def handle_call({:change_state, state}, _from, game) do
     if state != game.state do
-      new_game = Game.change_state(game, state)
-      broadcast(game, {:change_state, game.state, new_game.state, new_game})
+      new_game =
+        game
+        |> Game.change_state(state)
+        |> game_state_changed(game.state, state)
+
+      broadcast(game, {:change_state, game.state, state, new_game})
       {:reply, {:ok, new_game}, new_game}
     else
       {:reply, {:error, :already_in_state}, game}
@@ -254,6 +287,62 @@ defmodule Answercast.GameManager do
   end
 
   #
+  # Game Management functions
+  #
+
+  # The first round begins
+  defp game_state_changed(game, :idle, :poll) do
+    Logger.debug("GameManager [#{game.id}] game_state_changed :idle -> :poll")
+    game
+    |> reset_player_answers(:needed)
+  end
+
+  # We want to look at the answers
+  defp game_state_changed(game, :idle, :results) do
+    Logger.debug("GameManager [#{game.id}] game_state_changed :idle -> :poll")
+  end
+
+  # A round was canceled
+  defp game_state_changed(game, :poll, :idle) do
+    Logger.debug("GameManager [#{game.id}] game_state_changed :poll -> :idle")
+    game
+    |> reset_player_answers()
+  end
+
+  # A round was finished
+  defp game_state_changed(game, :poll, :results) do
+    Logger.debug("GameManager [#{game.id}] game_state_changed :poll -> :results")
+    game
+    |> gather_answers()
+    |> reset_player_answers()
+  end
+
+  # A new round is starting
+  defp game_state_changed(game, :results, :poll) do
+    Logger.debug("GameManager [#{game.id}] game_state_changed :idle -> :poll")
+    game
+    |> reset_player_answers(:needed)
+  end
+
+
+  defp reset_player_answers(game, answer_state \\ :none, answer \\ nil) do
+    Game.players(game)
+    |> Stream.map(fn player -> Client.update_answer_state(player, answer_state) end)
+    |> Stream.map(fn player -> Client.update_answer(player, answer) end)
+    |> Enum.reduce(game, fn player, game -> Game.update_player(game, player) end)
+  end
+
+  defp gather_answers(game) do
+    Logger.debug("GameManager [#{game.id}] gather_answers")
+    answers =
+      Game.players(game)
+      |> Stream.filter(fn player -> player.answer_state in [:accepted] end)
+      |> Stream.map(fn player -> player.answer end)
+      |> Enum.shuffle()
+    Game.update_answers(game, answers)
+  end
+
+  #
   # Miscellaneous private functions
   #
 
@@ -277,7 +366,7 @@ defmodule Answercast.GameManager do
       |> Enum.reduce(game, fn client, game ->
         Logger.info("Client timeout Game:#{game.id} Client:#{client.id} type:#{client.type} name:#{client.name}")
         new_game = Game.remove_client(game, client)
-        broadcast(game, {:leave, client, new_game})
+        broadcast(game, {:leave, client, new_game})  # broadcast to the original game so the client gets it as well
         new_game
       end)
   end

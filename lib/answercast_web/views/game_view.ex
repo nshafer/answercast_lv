@@ -44,7 +44,7 @@ defmodule AnswercastWeb.GameView do
         :accepted -> "user-check-solid.svg"
         :needed -> "user-edit-solid.svg"
         :skipped -> "user-times-solid.svg"
-        :unknown -> "user-connected.svg"
+        :none -> "user-connected.svg"
       end
     else
       "user-disconnected.svg"

@@ -34,7 +34,7 @@ defmodule AnswercastWeb.JoinLive do
   def handle_event("join_player", %{"game_id" => game_id, "name" => name}, socket) do
     if valid_game_id?(game_id) and valid_name?(game_id, name) do
       {:ok, mgr} = GameSupervisor.existing_game(game_id)
-      {:ok, player} = GameManager.add_player(mgr, name)
+      {:ok, player, _new_game} = GameManager.add_player(mgr, name)
       url = Routes.live_path(socket, AnswercastWeb.GameLive,  game_id, player.id)
       {:noreply, redirect(socket, to: url)}
     else
@@ -45,7 +45,7 @@ defmodule AnswercastWeb.JoinLive do
   def handle_event("join_viewer", %{"game_id" => game_id}, socket) do
     if valid_game_id?(game_id) do
       {:ok, mgr} = GameSupervisor.existing_game(game_id)
-      {:ok, viewer} = GameManager.add_viewer(mgr)
+      {:ok, viewer, _new_game} = GameManager.add_viewer(mgr)
       url = Routes.live_path(socket, AnswercastWeb.GameLive, game_id, viewer.id)
       {:noreply, redirect(socket, to: url)}
     else

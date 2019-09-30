@@ -34,7 +34,7 @@ defmodule AnswercastWeb.CreateLive do
       Logger.debug("Created new game: #{game_id}")
 
       client_type = parse_client_type(params["client_type"])
-      {:ok, client} = GameManager.add_client(mgr, client_type, params["name"])
+      {:ok, client, _new_game} = GameManager.add_client(mgr, client_type, params["name"])
       Logger.debug("Joined to game: #{client.id}")
 
       url = Routes.live_path(socket, AnswercastWeb.GameLive, game_id, client.id)

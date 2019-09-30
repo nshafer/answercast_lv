@@ -13,6 +13,8 @@
   padding: 0;
   border: 1px solid $gray-20;
   height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 .game-menu__item {

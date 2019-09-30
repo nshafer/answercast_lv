@@ -88,6 +88,10 @@ defmodule Answercast.Game do
     %Game{refresh(game) | state: state}
   end
 
+  def update_answers(game, answers) when is_list(answers) do
+    %Game{refresh(game) | answers: answers}
+  end
+
   # Accessors
 
   def num_players(game), do: map_size(game.players)

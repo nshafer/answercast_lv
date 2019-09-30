@@ -15,7 +15,7 @@ defmodule AnswercastWeb.GameLive do
     with {:ok, mgr} <- GameSupervisor.existing_game(game_id),
          {:ok, client, game} <- GameManager.connect(mgr, client_id) do
       :timer.send_interval(@ping_seconds * 1000, self(), :ping)
-      {:noreply, assign(socket, game: game, client_id: client_id, type: client.type)}
+      {:noreply, assign(socket, mgr: mgr, game: game, client_id: client_id, type: client.type)}
     else
       _ -> {:noreply, redirect(socket, to: "/")}
     end
@@ -27,6 +27,32 @@ defmodule AnswercastWeb.GameLive do
       :viewer -> AnswercastWeb.GameView.render("viewer.html", assigns)
     end
   end
+
+  def handle_event("leave", _params, socket) do
+    Logger.debug("[event] leave")
+    GameManager.remove_client(mgr(socket), me(socket))
+    {:noreply, socket}
+  end
+
+  def handle_event("start_round", _params, socket) do
+    Logger.debug("[event] start_round")
+    GameManager.change_state(mgr(socket), :poll)
+    {:noreply, socket}
+  end
+
+  def handle_event("cancel_round", _params, socket) do
+    Logger.debug("[event] cancel_round")
+    GameManager.change_state(mgr(socket), :idle)
+    {:noreply, socket}
+  end
+
+  def handle_event("end_round", _params, socket) do
+    Logger.debug("[event] end_round")
+    GameManager.change_state(mgr(socket), :results)
+    {:noreply, socket}
+  end
+
+  # GameManager callbacks
 
   def handle_info({:join, _client, game}, socket) do
     {:noreply, assign(socket, game: game)}
@@ -49,12 +75,15 @@ defmodule AnswercastWeb.GameLive do
   end
 
   def handle_info(:ping, socket) do
-    case GameSupervisor.existing_game(socket.assigns.game.id) do
-      {:ok, mgr} ->
-        GameManager.ping(mgr, me(socket))
-        {:noreply, socket}
-      {:err, error} ->
-        Logger.error("Could not find GameManager during ping: #{inspect error}")
+    with {:ok, mgr} <- GameSupervisor.existing_game(socket.assigns.game.id),
+         {:ok, _client, game} <- GameManager.ping(mgr, me(socket)) do
+        {:noreply, assign(socket, mgr: mgr, game: game)}
+    else
+      {:error, :client_not_connected} ->
+        Logger.error("I'm not connected anymore!")
+        {:noreply, redirect(socket, to: "/")}
+      {:error, error} ->
+        Logger.error("Error during ping: #{inspect error}")
         {:noreply, redirect(socket, to: "/")}
     end
   end
@@ -78,5 +107,9 @@ defmodule AnswercastWeb.GameLive do
       err -> Logger.warn("Could not disconnect: #{inspect err}")
       :ok
     end
+  end
+
+  defp mgr(socket) do
+    socket.assigns.mgr
   end
 end
