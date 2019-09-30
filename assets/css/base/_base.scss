@@ -9,7 +9,7 @@ html, body {
 body {
   display: flex;
   flex-flow: column nowrap;
-  font-family: sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1rem;
   background: $background;
   background: radial-gradient(at 50% 30%, rgba(0, 0, 0, 0.1) 0, rgba(0, 0, 0, 0.7) 100%), url(../../images/wood_texture.jpg), $background;

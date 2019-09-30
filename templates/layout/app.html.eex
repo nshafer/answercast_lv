@@ -4,6 +4,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
+    <link href="https://fonts.googleapis.com/css?family=Architects+Daughter|Coming+Soon|Covered+By+Your+Grace|Indie+Flower|Roboto+Slab:400,700|Roboto:400,700|Shadows+Into+Light|Waiting+for+the+Sunrise&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/static/css/app.css") %>"/>
 
     <title>Answercast</title>
