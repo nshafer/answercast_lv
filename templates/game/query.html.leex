@@ -1,10 +1,14 @@
 <div class="query <%= if show_query(assigns) do %>show<% end %>">
     <div class="query__content">
-        <div class="query__header">
-            Submit your answer!
-        </div>
-        <form class="query__form">
-            <textarea name="submission"></textarea>
+        <form class="query__form" phx-submit="submit_answer">
+            <div class="input-group">
+                <label class="query__answerlabel" for="answer">
+                    Submit your answer!
+                </label>
+                <textarea id="answer" class="query__answerinput" name="answer" maxlength="140"></textarea>
+            </div>
+
+            <button class="btn" type="submit">Submit</button>
         </form>
     </div>
 </div>

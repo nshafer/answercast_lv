@@ -26,10 +26,6 @@ defmodule AnswercastWeb.GameView do
     Client.is_connected?(client)
   end
 
-  def show_answerboard(assigns) do
-    assigns.game.state in [:result]
-  end
-
   def show_scoreboard(assigns) do
     assigns.game.state in [:idle, :poll] and me(assigns).answer_state not in [:needed]
   end

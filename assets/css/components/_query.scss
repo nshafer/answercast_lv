@@ -2,13 +2,24 @@
 
 .query {
   position: fixed;
-  bottom: 0;
+  top: $game-header-height;
+  left: 0;
   right: 0;
-  width: 40%;
-  height: 50%;
+  bottom: $game-control-height;
   padding: 1rem;
   transform: translateX(105%);
   transition: transform .3s;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: flex-start;
+
+  @media (min-height: 25em) {
+    align-items: center;
+  }
 }
 
 .query.show {
@@ -17,9 +28,18 @@
 
 .query__content {
   @extend .papersheet;
-
+  //min-width: 30em;
+  width: 100%;
+  max-width: 30em;
 }
 
-.query__players {
-  @extend .papersheet__body;
+.query__answerlabel {
+  font-size: 1.2em;
+}
+
+.query__answerinput {
+  width: 100%;
+  height: 5em;
+  resize: none;
+  max-height: 50vh;
 }

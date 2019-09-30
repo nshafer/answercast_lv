@@ -113,6 +113,10 @@ defmodule Answercast.GameManager do
     GenServer.call(pid, {:change_state, state})
   end
 
+  def submit_answer(pid, %Client{} = client, answer) when is_binary(answer) do
+    GenServer.call(pid, {:submit_answer, client, answer})
+  end
+
   # Settings
 
   def settings(pid) do
@@ -206,16 +210,31 @@ defmodule Answercast.GameManager do
   end
 
   def handle_call({:change_state, state}, _from, game) do
+    Logger.debug("GameManager [#{game.id} change_state from: #{game.state} to #{state}")
     if state != game.state do
-      new_game =
-        game
-        |> Game.change_state(state)
-        |> game_state_changed(game.state, state)
-
-      broadcast(game, {:change_state, game.state, state, new_game})
+      new_game = change_game_state(game, state)
       {:reply, {:ok, new_game}, new_game}
     else
       {:reply, {:error, :already_in_state}, game}
+    end
+  end
+
+  def handle_call({:submit_answer, client, answer}, _from, game) do
+    Logger.debug("GameManager [#{game.id} submit_answer client: #{client.id} answer: #{answer}")
+    new_client =
+      client
+      |> Client.update_answer(answer)
+      |> Client.update_answer_state(:accepted)
+
+    new_game = Game.update_client(game, new_client)
+
+    broadcast(new_game, {:answer_submitted, new_client, new_game})
+
+    if all_answers_submitted(new_game) do
+      new_game = change_game_state(new_game, :results)
+      {:reply, {:ok, new_game}, new_game}
+    else
+      {:reply, {:ok, new_game}, new_game}
     end
   end
 
@@ -290,6 +309,17 @@ defmodule Answercast.GameManager do
   # Game Management functions
   #
 
+  defp change_game_state(game, new_state) do
+    new_game =
+      game
+      |> Game.change_state(new_state)
+      |> game_state_changed(game.state, new_state)
+
+    broadcast(game, {:change_state, game.state, new_state, new_game})
+
+    new_game
+  end
+
   # The first round begins
   defp game_state_changed(game, :idle, :poll) do
     Logger.debug("GameManager [#{game.id}] game_state_changed :idle -> :poll")
@@ -324,7 +354,6 @@ defmodule Answercast.GameManager do
     |> reset_player_answers(:needed)
   end
 
-
   defp reset_player_answers(game, answer_state \\ :none, answer \\ nil) do
     Game.players(game)
     |> Stream.map(fn player -> Client.update_answer_state(player, answer_state) end)
@@ -339,7 +368,13 @@ defmodule Answercast.GameManager do
       |> Stream.filter(fn player -> player.answer_state in [:accepted] end)
       |> Stream.map(fn player -> player.answer end)
       |> Enum.shuffle()
+    Logger.debug("GameManager [#{game.id}] answers now: #{inspect answers}")
     Game.update_answers(game, answers)
+  end
+
+  defp all_answers_submitted(game) do
+    Game.players(game)
+    |> Enum.all?(fn player -> player.answer_state in [:accepted, :skipped] end)
   end
 
   #

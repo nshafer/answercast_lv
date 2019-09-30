@@ -1,7 +1,82 @@
-<div class="answerboard <%= if show_answerboard(assigns) do %>show<% end %>">
+<div class="answerboard <%= @type %>">
     <%= for answer <- @game.answers do %>
         <div class="answerboard__answer">
             <%= answer %>
         </div>
     <% end %>
+
+    <!--
+    <div class="answerboard__answer">
+        <div class="answerboard__text">
+            This is a test answer
+        </div>
+    </div>
+
+    <div class="answerboard__answer">
+        <div class="answerboard__text">
+            Another test answer
+        </div>
+    </div>
+
+    <div class="answerboard__answer">
+        <div class="answerboard__text">
+            Yet another test Answer
+        </div>
+    </div>
+
+    <div class="answerboard__answer">
+        <div class="answerboard__text">
+            This one is pretty long, approaching the absolute limit of length of answers that will be allowed which is 140 chars actually we have more.
+        </div>
+    </div>
+
+    <div class="answerboard__answer">
+        <div class="answerboard__text">
+            No
+        </div>
+    </div>
+
+    <div class="answerboard__answer">
+        <div class="answerboard__text">
+            Let‘s make sure ựṅİċċôďế workß
+        </div>
+    </div>
+
+    <div class="answerboard__answer">
+        <div class="answerboard__text">
+            Lorem ipsum is pretty stupid, don't you think?
+        </div>
+    </div>
+
+    <div class="answerboard__answer">
+        <div class="answerboard__text">
+            Nothing feels the same except the way we look, and now I'm lost for words
+        </div>
+    </div>
+
+    <div class="answerboard__answer">
+        <div class="answerboard__text">
+            WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+        </div>
+    </div>
+
+    <div class="answerboard__answer">
+        <div class="answerboard__text">
+            Ohhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh can you answer me
+        </div>
+    </div>
+
+    <div class="answerboard__answer">
+        <div class="answerboard__text">
+            WWWWWW WWWW WWWWWWWWWW WWWW WWWWWWWW WWWW WWWW WWWWWWWWWW WWWWWW WWWWWWWW WWWWWWWWWW WWWWWW WWWWW WWW WW WWWWWWWWWW WWWW WWWWWWW WWWWWW WWWW WW Z
+        </div>
+    </div>
+
+    <div class="answerboard__answer">
+        <div class="answerboard__text">
+            I always want to hear.................................................................................................................
+        </div>
+    </div>
+    -->
+
 </div>

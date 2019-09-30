@@ -1,24 +1,47 @@
 @import '../variables';
 
 .answerboard {
-    flex: 1;
-    padding: 2rem;
-    display: none;
-}
-
-.answerboard.show {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
+    margin: -1em;
+    padding: 1em;
+    font-size: .8rem;
+    @media (min-width: $answerboard-sm) {
+        font-size: .9rem;
+    }
+    @media (min-width: $answerboard-md) {
+        font-size: 1rem;
+    }
+    @media (min-width: $answerboard-lg) {
+        font-size: 1.1rem;
+    }
+    @media (min-width: $answerboard-xl) {
+        font-size: 1.3rem;
+    }
 }
 
 .answerboard__answer {
     @extend .papersheet;
-    min-width: 15rem;
-    min-height: 7rem;
+    min-width: 10em;
+    max-width: 15em;
+    min-height: 5em;
     display: flex;
+    flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-    font-size: 1.2rem;
+    margin: 1em;
+}
+
+.answerboard__text {
+    text-align: center;
+    font-size: 1.2em;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+
+.answerboard.viewer {
 }

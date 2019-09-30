@@ -52,6 +52,12 @@ defmodule AnswercastWeb.GameLive do
     {:noreply, socket}
   end
 
+  def handle_event("submit_answer", %{"answer" => answer}, socket) do
+    Logger.debug("[event] submit_answer #{answer}")
+    GameManager.submit_answer(mgr(socket), me(socket), answer)
+    {:noreply, socket}
+  end
+
   # GameManager callbacks
 
   def handle_info({:join, _client, game}, socket) do
@@ -90,6 +96,11 @@ defmodule AnswercastWeb.GameLive do
 
   def handle_info({:change_state, old_state, new_state, game}, socket) do
     Logger.debug("Changed state from #{old_state} to #{new_state}")
+    {:noreply, assign(socket, game: game)}
+  end
+
+  def handle_info({:answer_submitted, client, game}, socket) do
+    Logger.debug("Answer submitted: #{client.id} #{client.answer_state} #{client.answer}")
     {:noreply, assign(socket, game: game)}
   end
 

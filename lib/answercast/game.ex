@@ -55,11 +55,11 @@ defmodule Answercast.Game do
   end
 
   def update_player(game, player) do
-    %Game{refresh(game) | players: Map.put(game.players, player.id, player)}
+    %Game{refresh(game) | players: Map.replace!(game.players, player.id, player)}
   end
   
   def update_viewer(game, viewer) do
-    %Game{refresh(game) | viewers: Map.put(game.viewers, viewer.id, viewer)}
+    %Game{refresh(game) | viewers: Map.replace!(game.viewers, viewer.id, viewer)}
   end
   
   def update_client(game, client) do

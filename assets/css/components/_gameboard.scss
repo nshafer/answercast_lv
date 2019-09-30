@@ -3,4 +3,12 @@
   flex: 1;
   display: flex;
   flex-flow: column nowrap;
+  justify-content: center;
+  padding-top: $game-header-height;
+  padding-bottom: $game-control-height;
+  @media (min-width: $game-header-lg) {
+    padding-bottom: 0;
+  }
+  background: $background;
+  background: radial-gradient(at 50% 30%, rgba(0, 0, 0, 0.1) 0, rgba(0, 0, 0, 0.7) 100%), url(../../images/wood_texture.jpg), $background;
 }
