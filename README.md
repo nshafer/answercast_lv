@@ -17,13 +17,13 @@ It’s the perfect companion for games such as “The Game of Things” or “Lo
 
 Board games known to be enhanced by the usage of this app:
 
--  "The Game of Things" by Parker Brothers
--  "Loaded Questions" by All Things Equal, Inc
--  "Balderdash" by Mattel
--  Fictionary / The Dictionary Game
--  "Dictionary Dabble" by Patch
--  "Flummoxed" by Lagoon Games
--  "Wise and Otherwise" by WiseandOtherwise.com Inc
+- "The Game of Things" by Parker Brothers
+- "Loaded Questions" by All Things Equal, Inc
+- "Balderdash" by Mattel
+- Fictionary / The Dictionary Game
+- "Dictionary Dabble" by Patch
+- "Flummoxed" by Lagoon Games
+- "Wise and Otherwise" by WiseandOtherwise.com Inc
 
 # Background
 
