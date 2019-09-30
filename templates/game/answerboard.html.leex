@@ -1,5 +1,7 @@
-<div class="answerboard">
-    <div class="answerboard__answer">
-        Blue, no yellow...
-    </div>
+<div class="answerboard <%= if show_answerboard(assigns) do %>show<% end %>">
+    <%= for answer <- @game.answers do %>
+        <div class="answerboard__answer">
+            <%= answer %>
+        </div>
+    <% end %>
 </div>

@@ -3,6 +3,10 @@
 .answerboard {
     flex: 1;
     padding: 2rem;
+    display: none;
+}
+
+.answerboard.show {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;

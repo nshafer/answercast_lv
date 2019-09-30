@@ -3,6 +3,7 @@ defmodule AnswercastWeb.GameLive do
   require Logger
 
   alias Answercast.{GameSupervisor,GameManager}
+  import AnswercastWeb.GameView, only: [me: 1]
 
   @ping_seconds 30
 
@@ -10,18 +11,18 @@ defmodule AnswercastWeb.GameLive do
     {:ok, socket}
   end
 
-  def handle_params(%{"game_id" => game_id, "client_id" => client_id} = params, _url, socket) do
+  def handle_params(%{"game_id" => game_id, "client_id" => client_id} = _params, _url, socket) do
     with {:ok, mgr} <- GameSupervisor.existing_game(game_id),
-         {:ok, me, game} <- GameManager.connect(mgr, client_id) do
-      :timer.send_interval(@ping_seconds * 1000, self(), {:ping, game, me})
-      {:noreply, assign(socket, me: me, game: game)}
+         {:ok, client, game} <- GameManager.connect(mgr, client_id) do
+      :timer.send_interval(@ping_seconds * 1000, self(), :ping)
+      {:noreply, assign(socket, game: game, client_id: client_id, type: client.type)}
     else
       _ -> {:noreply, redirect(socket, to: "/")}
     end
   end
 
   def render(assigns) do
-    case assigns.me.type do
+    case assigns.type do
       :player -> AnswercastWeb.GameView.render("player.html", assigns)
       :viewer -> AnswercastWeb.GameView.render("viewer.html", assigns)
     end
@@ -32,7 +33,7 @@ defmodule AnswercastWeb.GameLive do
   end
 
   def handle_info({:leave, client, game}, socket) do
-    if client.id == my_client_id(socket) do
+    if client.id == me(socket).id do
       {:noreply, redirect(socket, to: "/")}
     else
       {:noreply, assign(socket, game: game)}
@@ -47,16 +48,20 @@ defmodule AnswercastWeb.GameLive do
     {:noreply, assign(socket, game: game)}
   end
 
-  def handle_info({:ping, game, me}, socket) do
-    case GameSupervisor.existing_game(game.id) do
+  def handle_info(:ping, socket) do
+    case GameSupervisor.existing_game(socket.assigns.game.id) do
       {:ok, mgr} ->
-        GameManager.ping(mgr, me)
+        GameManager.ping(mgr, me(socket))
         {:noreply, socket}
       {:err, error} ->
         Logger.error("Could not find GameManager during ping: #{inspect error}")
         {:noreply, redirect(socket, to: "/")}
     end
+  end
 
+  def handle_info({:change_state, old_state, new_state, game}, socket) do
+    Logger.debug("Changed state from #{old_state} to #{new_state}")
+    {:noreply, assign(socket, game: game)}
   end
 
   def handle_info(message, socket) do
@@ -67,19 +72,11 @@ defmodule AnswercastWeb.GameLive do
   def terminate(reason, socket) do
     Logger.debug("terminate #{inspect reason} #{inspect socket.assigns}")
     with {:ok, game} <- Map.fetch(socket.assigns, :game),
-         {:ok, me} <- Map.fetch(socket.assigns, :me),
          {:ok, mgr} <- GameSupervisor.existing_game(game.id),
-         {:ok, _client, _game} <- GameManager.disconnect(mgr, me) do
+         {:ok, _client, _game} <- GameManager.disconnect(mgr, me(socket)) do
     else
       err -> Logger.warn("Could not disconnect: #{inspect err}")
       :ok
-    end
-  end
-
-  defp my_client_id(socket) do
-    case socket.assigns[:me] do
-      nil -> nil
-      me -> me.id
     end
   end
 end

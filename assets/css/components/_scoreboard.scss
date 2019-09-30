@@ -2,18 +2,315 @@
 
 .scoreboard {
   position: fixed;
-  bottom: 0;
+  top: $game-header-height;
   left: 0;
-  width: 40%;
-  height: 50%;
-  padding: 1rem;
+  right: 0;
+  bottom: $game-control-height;
+  padding: 1em;
+  transform: translateX(-105%);
+  transition: transform .3s;
+  overflow-x: hidden;
+  overflow-y: auto;
+  //display: flex;
+  //flex-flow: row nowrap;
+  //justify-content: center;
+  //align-items: flex-start;
+
+  font-size: .8rem;
+
+  @media (min-width: $game-header-lg) {
+    bottom: 0;
+  }
+
+  @media (min-width: $scoreboard-md) and (min-height: 800px) {
+    font-size: .9rem;
+  }
+
+  @media (min-width: $scoreboard-md) and (min-height: 900px) {
+    font-size: 1rem;
+  }
+
+  @media (min-width: $scoreboard-lg) and (min-height: 700px) {
+    font-size: 1rem;
+  }
+
+  @media (min-width: $scoreboard-xl) and (min-height: 700px) {
+    font-size: 1.1rem;
+  }
+
+  @media (min-width: $scoreboard-xl) and (min-height: 900px) {
+    font-size: 1.25rem;
+  }
+
+  @media (min-width: 1280px) and (min-height: 720px) {
+    font-size: 1.2rem;
+  }
+
+  @media (min-width: 1280px) and (min-height: 1000px) {
+    font-size: 1.5rem;
+  }
+
+  @media (min-width: 1920px) and (min-height: 1080px) {
+    font-size: 1.75rem;
+  }
+
+  @media (min-width: 1920px) and (min-height: 1300px) {
+    font-size: 2rem;
+  }
+
+  //@media (min-width: $scoreboard-lg) and (min-height: 800px) {
+  //  font-size: 1.2rem;
+  //}
+
+  //@media (min-height: 625px) {
+  //  align-items: center;
+  //}
+  //
+  //@media (min-width: $scoreboard-md) and (min-height: 600px) {
+  //  align-items: center;
+  //}
+  //
+  //@media (min-width: $scoreboard-lg) and (min-height: 600px) {
+  //  align-items: center;
+  //}
+  //
+  //@media (min-height: 500px) {
+  //  font-size: .8rem;
+  //}
+  //
+  //@media (min-height: 720px) {
+  //  font-size: 1rem;
+  //}
+  //
+  //@media (min-height: 960px) {
+  //  font-size: 1.5rem;
+  //}
+  //
+  //@media (min-height: 1080px) {
+  //  font-size: 2rem;
+  //}
+  //
+  //@media (min-height: 1600px) {
+  //  font-size: 3rem;
+  //}
+  //
+  //@media (min-height: 2160px) {
+  //  font-size: 4rem;
+  //}
+}
+
+.scoreboard.viewer {
+  bottom: 0;
+}
+
+.scoreboard.show {
+  transform: translateX(0);
 }
 
 .scoreboard__content {
   @extend .papersheet;
+  transform: rotate(1deg);
+  transition: transform .3s;
+  //max-width: 80em;
+  //min-width: 75vw;
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: 2em 1fr;
+  padding: 1em;
 
+  .scoreboard.show & {
+    transform: rotate(-0.25deg);
+  }
+}
+
+.scoreboard__header {
+  align-self: start;
+}
+
+.scoreboard__heading {
+  font-size: 1.5em;
+  line-height: 1;
 }
 
 .scoreboard__players {
-  @extend .papersheet__body;
+  display: grid;
+  grid-gap: 0;
+  border: 1px solid $gray-20;
+
+  @media (min-width: $scoreboard-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: $scoreboard-lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: $scoreboard-xl) {
+    //grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.scoreboard__player {
+  border: 1px solid $gray-20;
+  color: $gray-50;
+  padding: .25em;
+
+  display: grid;
+  grid-template-columns: 1.5em 5fr 5fr;
+  grid-template-areas: "icon name status";
+  grid-gap: .5em;
+
+  @media (min-width: $scoreboard-md) {
+    grid-template-columns: minmax(2.5rem, 1fr) 5fr;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas:
+            "icon name"
+            "icon status";
+    grid-gap: .25em .5em;
+    padding: .5em;
+  }
+
+  @media (min-width: $scoreboard-lg) {
+    grid-template-columns: minmax(4em, 1fr) 3fr;
+    grid-gap: .5em .5em;
+  }
+
+  @media (min-width: $scoreboard-xl) {
+    grid-template-columns: minmax(4em, 1fr) 3fr;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas:
+            "icon name"
+            "icon status";
+    padding: .5em;
+  }
+
+  @media (min-width: $scoreboard-lg) and (min-height: 900px) and (max-width: $scoreboard-xl - .1rem), (min-width: $scoreboard-xl) and (min-height: 1300px) and (max-width: 1279px) {
+    grid-template-columns: auto;
+    grid-template-rows: 1fr max-content max-content;
+    grid-template-areas:
+            "icon"
+            "name"
+            "status";
+    padding: 1em;
+  }
+
+  //@media (min-width: $scoreboard-xl) and (min-height: 1300px) {
+  //  grid-template-columns: auto;
+  //  grid-template-rows: 1fr max-content max-content;
+  //  grid-template-areas:
+  //          "icon"
+  //          "name"
+  //          "status";
+  //  padding: 1em;
+  //}
+}
+
+.scoreboard__player--blank {
+  color: $gray-50;
+  .scoreboard__player__value {
+    border-color: $gray-50;
+  }
+}
+
+.scoreboard__player.connected {
+  color: $gray-20;
+}
+
+.scoreboard__player__icon {
+  grid-area: icon;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.scoreboard__player__iconimage {
+  width: 100%;
+  height: auto;
+  max-width: 90%;
+  max-height: 90%;
+  @media (min-width: $scoreboard-lg) {
+    max-width: 3em;
+  }
+}
+
+.scoreboard__player__infogroup {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  grid-gap: .25rem;
+  align-items: center;
+  @media (min-width: $scoreboard-md) {
+    grid-template-columns: 3em 5fr;
+    grid-gap: .25em .5em;
+  }
+  @media (min-width: $scoreboard-lg), (min-width: $scoreboard-md) and (min-height: 700px) {
+    grid-template-columns: auto;
+    //align-items: stretch;
+  }
+}
+
+.scoreboard__player__name {
+  grid-area: name;
+  @media (min-width: $scoreboard-md) {
+    align-self: end;
+  }
+  @media (min-width: $scoreboard-lg), (min-width: $scoreboard-md) and (min-height: 700px) {
+    //align-self: auto;
+  }
+}
+
+.scoreboard__player__status {
+  grid-area: status;
+  @media (min-width: $scoreboard-md) {
+    align-self: start;
+  }
+  @media (min-width: $scoreboard-lg), (min-width: $scoreboard-md) and (min-height: 700px) {
+    //align-self: auto;
+  }
+}
+
+.scoreboard__player__label {
+  font-size: .7em;
+  font-weight: bold;
+  line-height: 1;
+  justify-self: end;
+  white-space: nowrap;
+  text-transform: uppercase;
+  @media (min-width: $scoreboard-md) {
+    line-height: 1;
+  }
+  @media (min-width: $scoreboard-lg), (min-width: $scoreboard-md) and (min-height: 700px) {
+    justify-self: auto;
+    align-self: end;
+  }
+}
+
+.scoreboard__player__value {
+  line-height: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  border: 1px solid $gray-20;
+  padding: .25em .5em;
+  font-family: 'Architects Daughter', cursive;
+  //font-family: 'Roboto', sans-serif;
+  @media (min-width: $scoreboard-md) {
+  }
+  @media (min-width: $scoreboard-lg), (min-width: $scoreboard-md) and (min-height: 900px) {
+    align-self: start;
+  }
+}
+
+.scoreboard.viewer {
+  overflow-y: hidden;
+//
+//  .scoreboard__content {
+//    height: 100%;
+//    overflow: hidden;
+//  }
+//
+//  .scoreboard__players {
+//    height: calc(100% - (1.75rem * 1.5)); // Leave room for the header (1.75rem font size * 1.5 line-height)
+//    overflow: hidden;
+//  }
 }

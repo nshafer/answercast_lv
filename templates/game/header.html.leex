@@ -6,7 +6,7 @@
         <div class="game-header__gameid__value"><%= @game.id %></div>
     </div>
 
-    <%= if @me.type == :player do %>
+    <%= if @type == :player do %>
         <div class="game-header__gamecontrol game-control">
             <div class="game-control__buttons">
                 <button class="game-control__button">

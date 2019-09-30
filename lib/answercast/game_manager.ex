@@ -4,6 +4,9 @@ defmodule Answercast.GameManager do
 
   alias Answercast.{GameRegistry, Game, Client, GameSettings}
 
+  @valid_game_states Game.valid_states()
+  @valid_answer_states Client.valid_answer_states()
+
   #
   # Client interface
   #
@@ -94,6 +97,10 @@ defmodule Answercast.GameManager do
     GenServer.call(pid, {:ping, client})
   end
 
+  def change_state(pid, state) when state in @valid_game_states do
+    GenServer.call(pid, {:change_state, state})
+  end
+
   # Settings
 
   def settings(pid) do
@@ -167,6 +174,16 @@ defmodule Answercast.GameManager do
     new_game = Game.update_client(game, new_client)
 #    Logger.debug("GameManager [#{game.id} ping client: #{new_client.id} name: #{client.name}")
     {:reply, {:ok, new_client, new_game}, new_game}
+  end
+
+  def handle_call({:change_state, state}, _from, game) do
+    if state != game.state do
+      new_game = Game.change_state(game, state)
+      broadcast(game, {:change_state, game.state, new_game.state, new_game})
+      {:reply, {:ok, new_game}, new_game}
+    else
+      {:reply, {:error, :already_in_state}, game}
+    end
   end
 
   #
@@ -247,7 +264,7 @@ defmodule Answercast.GameManager do
     game_idle_for = DateTime.diff(now, game.last_update)
 
     @shutdown_empty_games
-      and game.clients == []
+      and Game.num_clients(game) == 0
       and game_running_for > @shutdown_grace_period
       and game_idle_for > @shutdown_grace_period
   end

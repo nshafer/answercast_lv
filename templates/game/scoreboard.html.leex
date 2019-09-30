@@ -1,16 +1,57 @@
-<div class="scoreboard">
+<div class="scoreboard <%= @type %> <%= if show_scoreboard(assigns) do %>show<% end %>">
     <div class="scoreboard__content">
         <div class="scoreboard__header">
-            <div class="papersheet__heading">
+            <div class="scoreboard__heading">
                 Players
             </div>
         </div>
-        <div class="scoreboard__body">
-            <%= for player <- get_players(@game) do %>
-                <div class="scoreboard__player">
-                    <%= player.name %> <%= if is_connected?(player) do %>(Connected)<%= end %>
+        <div class="scoreboard__players">
+            <%= for player <- get_scoreboard_players(@game) do %>
+                <div class="scoreboard__player <%= if Client.is_connected?(player) do %>connected<% end %>">
+                    <div class="scoreboard__player__icon">
+                        <img class="scoreboard__player__iconimage"
+                             src="<%= Routes.static_path(@socket, "/static/icons/#{player_icon(player)}") %>"/>
+                    </div>
+                    <div class="scoreboard__player__infogroup scoreboard__player__name">
+                        <div class="scoreboard__player__label">
+                            Name
+                        </div>
+                        <div class="scoreboard__player__value">
+                            <%= player.name %>
+                        </div>
+                    </div>
+                    <div class="scoreboard__player__infogroup scoreboard__player__status">
+                        <div class="scoreboard__player__label">
+                            Status
+                        </div>
+                        <div class="scoreboard__player__value">
+                            <%= player_status(player) %>
+                        </div>
+                    </div>
                 </div>
-            <%= end %>
+            <% end %>
+            <%= for blank <- get_blank_scoreboard_players(@game) do %>
+                <div class="scoreboard__player scoreboard__player--blank">
+                    <div class="scoreboard__player__icon">
+                    </div>
+                    <div class="scoreboard__player__infogroup scoreboard__player__name">
+                        <div class="scoreboard__player__label">
+                            Name
+                        </div>
+                        <div class="scoreboard__player__value">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <div class="scoreboard__player__infogroup scoreboard__player__status">
+                        <div class="scoreboard__player__label">
+                            Status
+                        </div>
+                        <div class="scoreboard__player__value">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            <% end %>
         </div>
     </div>
 </div>

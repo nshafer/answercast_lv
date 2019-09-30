@@ -7,6 +7,12 @@
   width: 40%;
   height: 50%;
   padding: 1rem;
+  transform: translateX(105%);
+  transition: transform .3s;
+}
+
+.query.show {
+  transform: translateX(0);
 }
 
 .query__content {

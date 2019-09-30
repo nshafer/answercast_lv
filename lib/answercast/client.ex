@@ -1,11 +1,14 @@
 defmodule Answercast.Client do
   alias __MODULE__
 
+  @valid_answer_states [:unknown, :needed, :accepted, :skipped]
+
   defstruct(
     id: nil,
     pid: nil,
     type: nil,
     name: nil,
+    answer_state: :unknown,
     last_update: nil
   )
 
@@ -28,5 +31,9 @@ defmodule Answercast.Client do
 
   def is_connected?(client) do
     client.pid != nil
+  end
+
+  def valid_answer_states() do
+    @valid_answer_states
   end
 end
