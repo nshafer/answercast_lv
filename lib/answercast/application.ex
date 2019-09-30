@@ -13,7 +13,7 @@ defmodule Answercast.Application do
       # Start the dynamic game supervisor under which game managers will be started
       Answercast.GameSupervisor,
       # Start the Ecto repository
-      Answercast.Repo,
+#      Answercast.Repo,
       # Start the endpoint when the application starts
       AnswercastWeb.Endpoint
       # Starts a worker by calling: Answercast.Worker.start_link(arg)
