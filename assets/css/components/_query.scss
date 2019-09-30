@@ -33,6 +33,21 @@
   max-width: 30em;
 }
 
+.query__header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.query__heading {
+  font-size: 1.5em;
+}
+
+.query__form {
+  @extend .papersheet__body;
+}
+
+
 .query__answerlabel {
   font-size: 1.2em;
 }

@@ -117,6 +117,10 @@ defmodule Answercast.GameManager do
     GenServer.call(pid, {:submit_answer, client, answer})
   end
 
+  def skip_answer(pid, %Client{} = client) do
+    GenServer.call(pid, {:skip_answer, client})
+  end
+
   # Settings
 
   def settings(pid) do
@@ -238,6 +242,21 @@ defmodule Answercast.GameManager do
     end
   end
 
+  def handle_call({:skip_answer, client}, _from, game) do
+    Logger.debug("GameManager [#{game.id} skip_answer client: #{client.id}")
+    new_client = Client.update_answer_state(client, :skipped)
+    new_game = Game.update_client(game, new_client)
+
+    broadcast(new_game, {:answer_skipped, new_client, new_game})
+
+    if all_answers_submitted(new_game) do
+      new_game = change_game_state(new_game, :results)
+      {:reply, {:ok, new_game}, new_game}
+    else
+      {:reply, {:ok, new_game}, new_game}
+    end
+  end
+
   #
   # Server callbacks
   #
@@ -310,14 +329,18 @@ defmodule Answercast.GameManager do
   #
 
   defp change_game_state(game, new_state) do
-    new_game =
+    Logger.debug("GameManager [#{game.id}] change_game_state #{game.state} -> #{new_state} ")
+
+    if new_state != game.state do
+      new_game =
+        game
+        |> Game.change_state(new_state)
+        |> game_state_changed(game.state, new_state)
+      broadcast(game, {:change_state, game.state, new_state, new_game})
+      new_game
+    else
       game
-      |> Game.change_state(new_state)
-      |> game_state_changed(game.state, new_state)
-
-    broadcast(game, {:change_state, game.state, new_state, new_game})
-
-    new_game
+    end
   end
 
   # The first round begins

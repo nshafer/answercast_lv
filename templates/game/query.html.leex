@@ -1,5 +1,11 @@
 <div class="query <%= if show_query(assigns) do %>show<% end %>">
     <div class="query__content">
+        <div class="query__header">
+            <div class="query__heading">
+                Answer Submission
+            </div>
+            <button class="query__skipbtn btn btn--link" phx-click="skip_answer">Skip</button>
+        </div>
         <form class="query__form" phx-submit="submit_answer">
             <div class="input-group">
                 <label class="query__answerlabel" for="answer">
@@ -8,7 +14,9 @@
                 <textarea id="answer" class="query__answerinput" name="answer" maxlength="140"></textarea>
             </div>
 
-            <button class="btn" type="submit">Submit</button>
+            <div class="button-group">
+                <button class="btn" type="submit" name="submit" value="1">Submit</button>
+            </div>
         </form>
     </div>
 </div>

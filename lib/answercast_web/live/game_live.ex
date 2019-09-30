@@ -52,9 +52,15 @@ defmodule AnswercastWeb.GameLive do
     {:noreply, socket}
   end
 
-  def handle_event("submit_answer", %{"answer" => answer}, socket) do
-    Logger.debug("[event] submit_answer #{answer}")
+  def handle_event("submit_answer", %{"answer" => answer} = params, socket) do
+    Logger.debug("[event] submit_answer #{answer} #{inspect params}")
     GameManager.submit_answer(mgr(socket), me(socket), answer)
+    {:noreply, socket}
+  end
+
+  def handle_event("skip_answer", _params, socket) do
+    Logger.debug("[event] skip_answer")
+    GameManager.skip_answer(mgr(socket), me(socket))
     {:noreply, socket}
   end
 
@@ -101,6 +107,11 @@ defmodule AnswercastWeb.GameLive do
 
   def handle_info({:answer_submitted, client, game}, socket) do
     Logger.debug("Answer submitted: #{client.id} #{client.answer_state} #{client.answer}")
+    {:noreply, assign(socket, game: game)}
+  end
+
+  def handle_info({:answer_skipped, client, game}, socket) do
+    Logger.debug("Answer skipped: #{client.id} #{client.answer_state}")
     {:noreply, assign(socket, game: game)}
   end
 
