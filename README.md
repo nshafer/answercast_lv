@@ -1,40 +1,42 @@
-# (App Name Here)
+# AnswerCast - 
 
-This is my entry in [Phoenix Phrenzy](https://phoenixphrenzy.com), showing off what [Phoenix](https://phoenixframework.org/) and [LiveView](https://github.com/phoenixframework/phoenix_live_view) can do.
+Play question and answer board games with your friends and a Google Cast device!
 
-![App Name Here preview](assets/static/images/preview.gif "App Name Here")
+![Answercast preview](assets/static/images/preview.gif "Answercast preview")
 
-# Phrenzy Instructions
+# Description
 
-Fork this repo and start build an application! See [Phoenix Phrenzy](https://phoenixphrenzy.com) for details.
+Answercast allows you and friends to play board games that require everyone to submit an answer, without
+having to use pen and paper!
 
-Note: for development, you'll need Elixir, Erlang and Node.js. If you use the [asdf version manager](https://github.com/asdf-vm/asdf) and install the [relevant plugins](https://asdf-vm.com/#/plugins-all?id=plugin-list), you can install the versions specified in `.tool-versions` with `asdf install`.
+Instead of writing down answers on paper, everyone submits their answers using a smart phone or tablet.
+Then the answers are scrambled and revealed on each device.
+Connect any other device with a screen as a Viewer so you can project the results to an entire room.
+
+It’s the perfect companion for games such as “The Game of Things” or “Loaded Questions” and many others.
+
+Board games known to be enhanced by the usage of this app:
+-  "The Game of Things" by Parker Brothers
+-  "Loaded Questions" by All Things Equal, Inc
+-  "Balderdash" by Mattel
+-  Fictionary / The Dictionary Game
+-  "Dictionary Dabble" by Patch
+-  "Flummoxed" by Lagoon Games
+-  "Wise and Otherwise" by WiseandOtherwise.com Inc
+
+# Background
+
+Several years ago I wrote this as two native apps, for Android (Java) and iOS (Objective-C), and leveraging a Google Cast
+device to mediate and display the game. However, for years I have wanted to redo this as a pure web-app utilizing modern
+web technologies so that it works on any device. When I learned about Phoenix Live View, I knew it was the perfect
+technology to use for this new version.
+
+Enjoy!
+
+# Phoenix Phrenzy
+
+This is my entry in [Phoenix Phrenzy](https://phoenixphrenzy.com),
+showing off what [Phoenix](https://phoenixframework.org/)
+and [LiveView](https://github.com/phoenixframework/phoenix_live_view) can do.
 
 
-## Deployment
-
-How you deploy your app is up to you. A couple of the easiest options are:
-
-- Heroku ([instructions](https://hexdocs.pm/phoenix/heroku.html))
-- [Gigalixir](https://gigalixir.com/) (doesn't limit number of connections)
-
-## The Usual README Content
-
-To start your Phoenix server:
-
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
-
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-  * Official website: http://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
