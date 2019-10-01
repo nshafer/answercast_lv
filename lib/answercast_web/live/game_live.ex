@@ -122,7 +122,7 @@ defmodule AnswercastWeb.GameLive do
   end
 
   def terminate(reason, socket) do
-    #Logger.warn("GameLive [#{socket.assigns.client_id}] terminate #{inspect reason} #{inspect socket.assigns}")
+    Logger.warn("GameLive [#{socket.assigns.client_id}] terminate #{inspect reason}")
     with {:ok, game} <- Map.fetch(socket.assigns, :game),
          {:ok, mgr} <- GameSupervisor.existing_game(game.id),
          {:ok, _client, _game} <- GameManager.disconnect(mgr, me(socket)) do
