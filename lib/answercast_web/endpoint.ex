@@ -14,14 +14,14 @@ defmodule AnswercastWeb.Endpoint do
   plug Plug.Static,
     at: "/",
     from: {:answercast, "priv/static"},
-    gzip: false,
+    gzip: true,
     only: ~w(favicon.ico robots.txt)
 
   # Serve "/static" files, which could be anything
   plug Plug.Static,
     at: "/static/",
     from: :answercast,
-    gzip: false
+    gzip: true
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
