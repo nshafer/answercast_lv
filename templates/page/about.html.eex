@@ -1,210 +1,49 @@
 <main class="main">
-    <div class="papersheet">
-        <div class="papersheet__header">
-            <h1 class="papersheet__heading">About</h1>
+    <div class="row">
+        <div class="col-800-6 mb-3 mb-800-0">
+            <div class="papersheet">
+                <div class="papersheet__header">
+                    <h1 class="papersheet__heading">About</h1>
+                </div>
+                <div class="papersheet__body">
+                    <p>
+                        Answercast allows you and friends to play board games that require everyone to submit an answer, without
+                        having to use pen and paper!
+                    </p>
+
+                    <p>
+                        Instead of writing down answers on paper, everyone submits their answers using a smart phone or tablet.
+                        Then the answers are scrambled and revealed on each device.
+                        Connect any other device with a screen as a Viewer so you can project the results to an entire room.
+                    </p>
+
+                    <p>
+                        It’s the perfect companion for games such as “The Game of Things” or “Loaded Questions” and many others.
+                    </p>
+
+                </div>
+            </div>
         </div>
-        <div class="papersheet__body">
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
-            <p>
-                About Answercast...
-            </p>
+
+        <div class="col-800-6">
+            <div class="papersheet">
+                <div class="papersheet__header">
+                    <h1 class="papersheet__heading">Compatible Board games</h1>
+                </div>
+                <div class="papersheet__body">
+                    <p>Board games known to be enhanced by the usage of this app</p>
+
+                    <ul>
+                        <li>"The Game of Things" by Parker Brothers</li>
+                        <li>"Loaded Questions" by All Things Equal, Inc</li>
+                        <li>"Balderdash" by Mattel</li>
+                        <li>Fictionary / The Dictionary Game</li>
+                        <li>"Dictionary Dabble" by Patch</li>
+                        <li>"Flummoxed" by Lagoon Games</li>
+                        <li>"Wise and Otherwise" by WiseandOtherwise.com Inc</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </main>
