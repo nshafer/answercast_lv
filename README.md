@@ -1,6 +1,6 @@
 # AnswerCast
 
-Play question and answer board games with your friends and a Google Cast device!
+Play question and answer board games with your friends without pen and paper!
 
 ![Answercast preview](assets/static/images/preview.gif "Answercast preview")
 
@@ -12,6 +12,7 @@ having to use pen and paper!
 Instead of writing down answers on paper, everyone submits their answers using a smart phone or tablet.
 Then the answers are scrambled and revealed on each device.
 Connect any other device with a screen as a Viewer so you can project the results to an entire room.
+Google Cast functionality is coming soon!
 
 It’s the perfect companion for games such as “The Game of Things” or “Loaded Questions” and many others.
 
