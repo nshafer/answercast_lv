@@ -1,0 +1,20 @@
+// Create media queries
+//
+// Adapted from Paper CSS
+//   Copyright (c) 2017–2018, Rhyne Vlaservich rhyneav@gmail.com
+//   https://www.getpapercss.com/
+
+@mixin media($min:null, $max:null) {
+  @if ($min != null and $max != null) {
+    @media only screen and (min-width: $min) and (max-width: $max) { @content; }
+  }
+  @else if($min != null and $max == null) {
+    @media only screen and (min-width: $min) { @content; }
+  }
+  @else if($max != null and $min == null) {
+    @media only screen and (max-width: $max) { @content; }
+  }
+  @else {
+    @content;
+  }
+}

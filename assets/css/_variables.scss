@@ -22,6 +22,24 @@ $bg-primary: #e6d1b8;
 $success: #008800;
 $failure: #880000;
 
+// Responsive grid
+$number-columns: 12;
+$gutter: 1rem;
+$min-breakpoint: 600;
+$max-breakpoint: 1200;
+$breakpoint-step: 200;
+
+// Spacing
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: ($spacer * .25),
+  2: ($spacer * .5),
+  3: $spacer,
+  4: ($spacer * 1.5),
+  5: ($spacer * 3)
+);
+
 // Sizing
 $header-height: 4rem;
 $header-height-lg: 5rem;

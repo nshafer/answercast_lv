@@ -1,5 +1,5 @@
 @import 'css/variables';
-@import '../mixins/hide-control';
+@import 'css/mixins';
 
 .main-header {
   flex: 0 0 $header-height;
