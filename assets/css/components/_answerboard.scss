@@ -32,7 +32,22 @@
     justify-content: center;
     align-items: center;
     margin: 1em;
+    font-family: "Architects Daughter", cursive;
+    transform: rotate(.3deg);
 }
+
+.answerboard__answer:nth-child(1) { transform: rotate(-0.6deg); }
+.answerboard__answer:nth-child(2) { transform: rotate( 0.4deg); }
+.answerboard__answer:nth-child(3) { transform: rotate(-1.2deg); }
+.answerboard__answer:nth-child(4) { transform: rotate( 0.1deg); }
+.answerboard__answer:nth-child(5) { transform: rotate(-0.6deg); }
+.answerboard__answer:nth-child(6) { transform: rotate(-0.1deg); }
+.answerboard__answer:nth-child(7) { transform: rotate( 1.3deg); }
+.answerboard__answer:nth-child(8) { transform: rotate(-0.5deg); }
+.answerboard__answer:nth-child(9) { transform: rotate( 1.8deg); }
+.answerboard__answer:nth-child(10) { transform: rotate(-1.1deg); }
+.answerboard__answer:nth-child(11) { transform: rotate( 0.9deg); }
+.answerboard__answer:nth-child(12) { transform: rotate( 0.1deg); }
 
 .answerboard__text {
     text-align: center;
