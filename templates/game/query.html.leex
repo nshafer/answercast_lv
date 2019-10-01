@@ -11,7 +11,7 @@
                 <label class="query__answerlabel" for="answer">
                     Submit your answer!
                 </label>
-                <textarea id="answer" class="query__answerinput" name="answer" maxlength="140"></textarea>
+                <input id="answer" class="query__answerinput" type="text" name="answer" maxlength="140" value="<%= me(assigns).answer %>" />
             </div>
 
             <div class="button-group">

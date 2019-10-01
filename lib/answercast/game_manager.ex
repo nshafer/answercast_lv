@@ -202,7 +202,7 @@ defmodule Answercast.GameManager do
   end
 
   def handle_call({:ping, client}, _from, game) do
-    Logger.debug("GameManager [#{game.id} ping client: #{client.id} name: #{client.name}")
+#    Logger.debug("GameManager [#{game.id} ping client: #{client.id} name: #{client.name}")
     with real_client when real_client != nil <- Game.get_client_by_id(game, client.id),
          new_client <- Client.refresh(real_client),
          new_game = Game.update_client(game, new_client) do
@@ -378,6 +378,7 @@ defmodule Answercast.GameManager do
   end
 
   defp reset_player_answers(game, answer_state \\ :none, answer \\ nil) do
+    Logger.debug("GameManager [#{game.id}] reset_player_answers answer_state:#{answer_state} answer:#{answer}")
     Game.players(game)
     |> Stream.map(fn player -> Client.update_answer_state(player, answer_state) end)
     |> Stream.map(fn player -> Client.update_answer(player, answer) end)
