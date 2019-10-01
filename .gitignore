@@ -2,6 +2,7 @@
 .elixir_ls
 .idea
 answercast.iml
+.env
 
 # The directory Mix will write compiled artifacts to.
 /_build/
