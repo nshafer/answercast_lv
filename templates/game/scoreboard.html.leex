@@ -10,7 +10,7 @@
                 <div class="scoreboard__player <%= if Client.is_connected?(player) do %>connected<% end %>">
                     <div class="scoreboard__player__icon">
                         <img class="scoreboard__player__iconimage"
-                             src="<%= Routes.static_path(@socket, "/static/icons/#{player_icon(player)}") %>"/>
+                             src="<%= Routes.static_path(@socket, "/icons/#{player_icon(player)}") %>"/>
                     </div>
                     <div class="scoreboard__player__infogroup scoreboard__player__name">
                         <div class="scoreboard__player__label">

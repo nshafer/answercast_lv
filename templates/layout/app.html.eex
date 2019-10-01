@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <link href="https://fonts.googleapis.com/css?family=Architects+Daughter|Coming+Soon|Covered+By+Your+Grace|Indie+Flower|Roboto+Slab:400,700|Roboto:400,700|Shadows+Into+Light|Waiting+for+the+Sunrise&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/static/css/app.css") %>"/>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
 
     <title>Answercast</title>
   </head>
   <body>
     <header class="main-header">
         <a href="/" class="main-header__logolink">
-            <img class="main-header__logo" src="<%= Routes.static_path(@conn, "/static/images/title_color_light.svg") %>"/>
+            <img class="main-header__logo" src="<%= Routes.static_path(@conn, "/images/title_color_light.svg") %>"/>
         </a>
 
         <input class="main-header__menucheckbox menu-icon__checkbox" type="checkbox" id="menubutton" name="menubutton" value="1">
@@ -40,6 +40,6 @@
         AnswerCast is Copyright ©2015-<%= year() %> Normal Technologies LLC D.B.A Type-in Games. All Rights Reserved.
     </footer>
 
-    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/static/js/app.js") %>"></script>
+    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

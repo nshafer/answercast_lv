@@ -13,6 +13,7 @@ config :answercast,
 # Configures the endpoint
 config :answercast, AnswercastWeb.Endpoint,
   url: [host: "localhost"],
+  static_url: [path: "/static"],
   secret_key_base: "dummy_val_for_dev_env",
   render_errors: [view: AnswercastWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Answercast.PubSub, adapter: Phoenix.PubSub.PG2],
