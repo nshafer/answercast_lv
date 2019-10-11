@@ -46,7 +46,8 @@ defmodule Answercast.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:timex, "~> 3.6.1"},
-      {:hashids, "~> 2.0"}
+      {:hashids, "~> 2.0"},
+      {:logger_file_backend, "~> 0.0.11"}
     ]
   end
 
