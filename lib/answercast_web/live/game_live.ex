@@ -127,6 +127,7 @@ defmodule AnswercastWeb.GameLive do
          {:ok, mgr} <- GameSupervisor.existing_game(game.id),
          {:ok, _client, _game} <- GameManager.disconnect(mgr, me(socket)) do
     else
+      {:error, :client_not_found} -> :ok
       err -> Logger.warn("GameLive Could not disconnect: #{inspect err}")
       :ok
     end
