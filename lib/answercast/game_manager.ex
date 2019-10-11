@@ -263,11 +263,8 @@ defmodule Answercast.GameManager do
 
   def handle_call(:crash, from, game) do
     Logger.debug("GameManager [#{game.id}] crash")
-    if game.id == "TEST" do
-      GenServer.reply(from, :ok)
-      raise("crash")
-    end
-    {:reply, :ok, game}
+    GenServer.reply(from, :ok)
+    raise("crash")
   end
 
   def handle_call(:get_state, _from, game)do
