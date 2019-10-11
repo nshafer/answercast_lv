@@ -7,8 +7,8 @@
 # General application configuration
 use Mix.Config
 
-config :answercast,
-  ecto_repos: [Answercast.Repo]
+#config :answercast,
+#  ecto_repos: [Answercast.Repo]
 
 # Configures the endpoint
 config :answercast, AnswercastWeb.Endpoint,

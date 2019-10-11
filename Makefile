@@ -3,21 +3,18 @@
 include .env
 export
 
+# Dev
 static:
 	npm run deploy --prefix ./assets
 
-push:
-	rsync -P -pthrvzc priv/static/ answercast.app:/web/answercast_lv/priv/static/
+push_static:
+	rsync -P -pthrvzc priv/static/ answercast@answercast.app:/web/answercast/priv/static/
 
-build:
+# Server
+release:
 	git pull
 	mix deps.get --only prod
-	mix compile
 	mix phx.digest
+	MIX_ENV=prod mix release --overwrite
 
-serve:
-	mix phx.server
-
-deploy: build serve
-
-.PHONY: static build serve deploy
+.PHONY: static push_static release

@@ -10,7 +10,8 @@ defmodule Answercast.MixProject do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      releases: releases()
     ]
   end
 
@@ -46,6 +47,15 @@ defmodule Answercast.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:timex, "~> 3.6.1"},
       {:hashids, "~> 2.0"}
+    ]
+  end
+
+  defp releases do
+    [
+      answercast: [
+        include_executables_for: [:unix],
+        path: "release"
+      ]
     ]
   end
 
