@@ -19,8 +19,8 @@ secret_key_base =
     You can generate one by calling: mix phx.gen.secret
     """
 
-#  http: [:inet6, port: String.to_integer(System.get_env("PORT") || "4000")],
 config :answercast, AnswercastWeb.Endpoint,
-  http: [ip: {:local, "answercast.sock"}, port: 0],
+  http: [:inet6, port: String.to_integer(System.get_env("PORT") || "4000")],
+#  http: [ip: {:local, "answercast.sock"}, port: 0],
   secret_key_base: secret_key_base,
   server: true
